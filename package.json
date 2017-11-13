@@ -3,7 +3,8 @@
 		"api": "node ratingsAPI.js",
 		"build": "webpack",
 		"dev": "webpack-dev-server",
-		"format": "prettier --write --single-quote --print-width=120 --parser=flow --tab-width=2 \"js/**/*.{js,jsx}\"",
+		"format":
+			"prettier --write --single-quote --print-width=120 --parser=flow --tab-width=2 \"js/**/*.{js,jsx}\"",
 		"lint": "eslint **/*.{js, jsx} --quiet",
 		"watch": "webpack --watch"
 	},
@@ -65,11 +66,11 @@
 		"react-test-renderer": "15.5.4",
 		"webpack-dev-server": "2.4.5"
 	},
-	"name": "complete-intro-to-react",
+	"name": "front-haushalt",
 	"version": "3.0.0",
-	"description": "A Complete Intro to React workshop",
+	"description": "",
 	"main": "server.js",
-	"repository": "git@github.com:btholt/complete-intro-to-react.git",
-	"author": "Brian Holt <btholt@gmail.com>",
+	"repository": "https://github.com/reganoneill/front-haushalt.git",
+	"author": "",
 	"license": "MIT"
 }

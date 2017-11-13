@@ -11,3 +11,10 @@ _site/
 .sass-cache/
 *.iml
 .idea/
+data.json
+ratingsAPI.js
+/js/Landing.jsx
+/js/Search.jsx
+/js/ShowCard.jsx
+/public/ref
+.env

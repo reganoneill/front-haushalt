@@ -1,6 +1,5 @@
 {
 	"scripts": {
-		"api": "node ratingsAPI.js",
 		"build": "webpack",
 		"dev": "webpack-dev-server",
 		"format":

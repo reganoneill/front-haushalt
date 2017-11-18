@@ -14,6 +14,7 @@ export const signinRequest = user => dispatch => {
 		.post(`http://localhost:8080/signin`)
 		.send(user)
 		.then(res => {
+			// history.push('/fuck!');
 			console.log(res); // eslint-disable-line no-console
 			window.localStorage.setItem('user', res.text);
 			dispatch(setToken(res.body.token));

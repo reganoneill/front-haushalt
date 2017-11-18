@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import superagent from 'superagent'; // import { setSearchTerm } from '../actionCreators';
+import { withRouter } from 'react-router-dom';
 import { signinRequest } from '../actionCreators';
 
 class Signin extends Component {
@@ -15,7 +15,12 @@ class Signin extends Component {
 		this.handleSignin = this.handleSignin.bind(this);
 		this.emailChange = this.emailChange.bind(this);
 		this.passwordChange = this.passwordChange.bind(this);
-		this.testPageChange = this.testPageChange.bind(this);
+	}
+
+	componentDidUpdate() {
+		if (this.props.token) {
+			this.props.history.push('/dash');
+		}
 	}
 
 	handleSignin(event) {
@@ -31,16 +36,11 @@ class Signin extends Component {
 		this.setState({ password: event.target.value });
 	}
 
-	// testing out using history api to change pages
-	testPageChange(event) {
-		event.preventDefault();
-		this.props.history.push('/test');
-	}
 	render() {
 		return (
 			<div className="signin">
 				<h1>signin</h1>
-
+				<p>{this.props.token}</p>
 				<h2>{this.props.searchTerm}</h2>
 				<h2>{this.state.password}</h2>
 				<button onClick={this.testPageChange}>change page</button>
@@ -66,13 +66,15 @@ class Signin extends Component {
 Signin.defaultProps = {
 	searchTerm: null,
 	signin: null,
-	// handleChange: null,
+	token: null,
+	history: null, // this works but looks weird. strange that it needs a default as it is pretty much native
 };
 
 Signin.propTypes = {
-	// handleChange: PropTypes.function,
 	searchTerm: PropTypes.string,
-	signin: PropTypes.function,
+	signin: PropTypes.func,
+	token: PropTypes.string,
+	history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 const mapStateToProps = state => ({
@@ -81,10 +83,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	signin: user => dispatch(signinRequest(user)),
+	// signin: user => dispatch(signinRequest(user)),
+	signin(user) {
+		dispatch(signinRequest(user));
+	},
 	// handleChange(event) {
 	// 	dispatch(setSearchTerm(event.target.value));
 	// },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signin);
+const connectedContainer = connect(mapStateToProps, mapDispatchToProps)(Signin);
+const ready2route = withRouter(connectedContainer);
+
+export default ready2route;

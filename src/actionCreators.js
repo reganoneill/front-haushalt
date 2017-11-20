@@ -37,3 +37,24 @@ export const signinRequest = user => dispatch => {
 			return res;
 		});
 };
+
+export const newListItem = listitem => {
+	// get cookie to pass for jwt Authorization
+	// const token = document.cookie.hausJwt;
+	// TODO:getCookie function was a really quick fix...needs to be refactored.
+	const jwtName = 'hausJwt';
+	function getCookie(token) {
+		const v = document.cookie.match(`(^|;) ?${token}=([^;]*)(;|$)`);
+		return v ? v[2] : null;
+	}
+	const cook = getCookie(jwtName);
+	superagent
+		.post(`http://localhost:8080/newListItem`)
+		.set('Authorization', `JWT ${cook}`)
+		.send(listitem)
+		.then(res => {
+			console.log(`here is the res ${res}`);
+			// dispatch(setUser(yourUser));
+			return res;
+		});
+};

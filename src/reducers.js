@@ -1,14 +1,15 @@
-import { SET_SEARCH_TERM, SET_TOKEN, SET_USER } from './actions';
+import { SET_SEARCH_TERM, SET_TOKEN, SET_USER, SET_LISTITEM } from './actions';
 
 const DEFAULT_STATE = {
 	searchTerm: 'whoa',
-	firstname: 'fname?',
+	firstname: 'first name',
 	user: {
 		email: 'aaaaah',
 		firstname: 'mmmmmmmhmmmm',
 		id: '1010101010101',
 		token: 'tooooooken',
 	},
+	listitems: {},
 };
 
 const setToken = (state, action) =>
@@ -27,6 +28,9 @@ const setUser = (state, action) =>
 		},
 	});
 
+const setListitem = (state, action) =>
+	Object.assign({}, state.listitems, { [action.payload.id]: action.payload });
+
 const rootReducer = (state = DEFAULT_STATE, action) => {
 	switch (action.type) {
 		case SET_SEARCH_TERM:
@@ -35,6 +39,8 @@ const rootReducer = (state = DEFAULT_STATE, action) => {
 			return setToken(state, action);
 		case SET_USER:
 			return setUser(state, action);
+		case SET_LISTITEM:
+			return setListitem(state, action);
 		default:
 			return state;
 	}

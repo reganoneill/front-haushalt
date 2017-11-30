@@ -46,10 +46,10 @@ class Dash extends Component {
 	submitListItem(e) {
 		e.preventDefault();
 		if (this) {
-			return this.props.dispatchListItem(this.state);
-			// console.log('hehehe', this.state);
+			return this.props.dispatchListItem(this.state.title);
+			// console.log('teh', this.state);
 		}
-		return 'shit';
+		return 'test';
 	}
 
 	render() {
@@ -90,11 +90,14 @@ Dash.propTypes = {
 
 const mapStateToProps = state => ({
 	user: state.user,
+	listitems: state.listitems,
 });
 
 const mapDispatchToProps = dispatch => ({
 	dispatchListItem(item) {
-		dispatch(newListItem(item));
+		// dispatch(newListItem(item));
+
+		newListItem(item);
 	},
 });
 

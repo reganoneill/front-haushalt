@@ -18,9 +18,10 @@ class Signin extends Component {
 		this.passwordChange = this.passwordChange.bind(this);
 	}
 	componentDidMount() {
-		if (window.localStorage.user) {
-			this.props.history.push('/dash');
-		}
+		// if (window.localStorage.user) {
+		// 	console.log('hittang');
+		// 	this.props.history.push('/dash');
+		// }
 	}
 
 	handleSignin(event) {
@@ -37,6 +38,7 @@ class Signin extends Component {
 	}
 
 	render() {
+		// console.log('here are the props:', this.props.user);
 		return (
 			<div className="signin">
 				<h1>signin</h1>
@@ -75,6 +77,7 @@ Signin.propTypes = {
 		id: PropTypes.string.isRequired,
 		token: PropTypes.string.isRequired,
 	}),
+	// eslint-disable-next-line
 	history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 

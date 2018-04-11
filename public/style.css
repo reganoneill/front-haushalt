@@ -17,6 +17,7 @@ html {
  */
 
 body {
+  border: '4px orange dotted';
   margin: 0;
 }
 

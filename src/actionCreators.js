@@ -1,31 +1,58 @@
 import superagent from 'superagent';
 import _ from 'lodash';
-import { SET_SEARCH_TERM, SET_TOKEN, SET_USER, SET_LISTITEM } from './actions';
+import Store from './store';
 
-export function setSearchTerm(searchTerm) {
-	return { type: SET_SEARCH_TERM, payload: searchTerm };
-}
-
-export function setToken(token) {
-	return { type: SET_TOKEN, payload: token };
-}
+import {
+	SET_SEARCH_TERM,
+	SET_TOKEN,
+	SET_USER,
+	SET_LISTITEM,
+	SET_MOSTPLAYED_ALL,
+	SET_MOSTPLAYED_6MONTHS,
+	SET_MOSTPLAYED_3MONTHS
+} from './actions';
 
 export function setUser(user) {
-	return {
+
+	Store.dispatch({
 		type: SET_USER,
-		payload: user,
-	};
+		user
+	});
 }
 
-export function setListItem(item) {
-	return { type: SET_LISTITEM, payload: item };
-}
+export const setMostPlayedAll = item => {
+	console.log('inside actionCreators...here is the argument:', item);
+	Store.dispatch({
+		type: SET_MOSTPLAYED_ALL,
+		payload: item
+	});
+};
 
-export const signinRequest = user => dispatch => {
+
+export const setMostPlayed6months = item => {
+	console.log('inside actionCreators...here is the argument:', item);
+	Store.dispatch({
+		type: SET_MOSTPLAYED_6MONTHS,
+		payload: item
+	});
+};
+
+export const setMostPlayed3months = item => {
+	console.log('inside actionCreators...here is the argument:', item);
+	Store.dispatch({
+		type: SET_MOSTPLAYED_3MONTHS,
+		payload: item
+	});
+};
+
+
+export const signinRequest = user => {
 	superagent
 		.post(`http://localhost:8080/signin`)
 		.send(user)
 		.then(res => {
+			console.log('our res!!!!!!', res);
+
 			const yourUser = _.assign(
 				{},
 				{
@@ -33,22 +60,25 @@ export const signinRequest = user => dispatch => {
 					firstname: res.body.firstname,
 					id: JSON.stringify(res.body.id),
 					token: res.body.token,
-				},
+					yowutUp: 'hehehehe'
+				}
 			);
-			window.localStorage.setItem('user', res.text);
-			document.cookie = `hausJwt=${res.body.token}`;
+			document.cookie = `token=${res.body.token}`;
+			window.localStorage.setItem('user', JSON.stringify(yourUser));
+			window.location.replace(`http://localhost:8081/dash/${res.body.email}`);
 			// this dispatch below may be unnecessary as I think dispatch only gets called from mapDispatchToProps in the component
-			dispatch(setUser(yourUser));
-			return res;
+			// dispatch(setUser(yourUser));
+			// return res;
 		});
+
 };
 
 export const newListItem = listitem => {
 	// get cookie to pass for jwt Authorization
 	// const token = document.cookie.hausJwt;
 	// TODO:getCookie function was a really quick fix...needs to be refactored.
-	console.log('here si the listitem:', listitem);
-	return;
+	// console.log('here si the listitem:', listitem);
+	// return;
 	const jwtName = 'hausJwt';
 	function getCookie(token) {
 		const v = document.cookie.match(`(^|;) ?${token}=([^;]*)(;|$)`);
@@ -60,10 +90,15 @@ export const newListItem = listitem => {
 		.post(`http://localhost:8080/newListItem`)
 		.set('Authorization', `JWT ${cook}`)
 		.send(listitem)
-		.then(res => {
-			const jsonres = JSON.stringify(res.body);
+		.then(
+			res =>
+				// const jsonres = JSON.stringify(res.body);
 
-			dispatch(setListItem(res.body));
-			return res;
-		});
+				// dispatch(setListItem(res.body));
+				res
+			// Store.dispatch({
+			// 	type: SET_SEARCH_TERM,
+			// 	payload: searchTerm
+			// });
+		);
 };

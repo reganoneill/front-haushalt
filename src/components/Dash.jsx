@@ -15,6 +15,7 @@ class Dash extends Component {
 	}
 
 	componentDidMount() {
+		console.log('oh shit, my props!', this.props);
 		this.userFinder().then(user => {
 			this.setState({
 				name: user.firstname,
@@ -47,9 +48,9 @@ class Dash extends Component {
 		e.preventDefault();
 		if (this) {
 			return this.props.dispatchListItem(this.state.title);
-			// console.log('teh', this.state);
+			// console.log('hehehe', this.state);
 		}
-		return 'test';
+		return 'shit';
 	}
 
 	render() {
@@ -58,6 +59,7 @@ class Dash extends Component {
 				<p>{this.state.name}</p>
 				<p>{this.state.email}</p>
 				<p>{this.state.title}</p>
+				<div>YOOOOOO!!!</div>
 				<form onSubmit={this.submitListItem}>
 					<input
 						value={this.state.title}
@@ -66,6 +68,9 @@ class Dash extends Component {
 					/>
 					<input type="submit" value="submit the form" />
 				</form>
+				<div>
+					<button onClick={this.logout}>logout</button>
+				</div>
 			</div>
 		);
 	}
@@ -95,9 +100,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	dispatchListItem(item) {
-		// dispatch(newListItem(item));
-
-		newListItem(item);
+		dispatch(newListItem(item));
 	},
 });
 

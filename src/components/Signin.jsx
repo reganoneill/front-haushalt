@@ -11,16 +11,17 @@ class Signin extends Component {
 		this.state = {
 			email: '',
 			password: '',
+			user: {},
 		};
 		this.handleSignin = this.handleSignin.bind(this);
 		this.emailChange = this.emailChange.bind(this);
 		this.passwordChange = this.passwordChange.bind(this);
 	}
-
-	componentDidUpdate() {
-		if (this.props.token) {
-			this.props.history.push('/dash');
-		}
+	componentDidMount() {
+		// if (window.localStorage.user) {
+		// 	console.log('hittang');
+		// 	this.props.history.push('/dash');
+		// }
 	}
 
 	handleSignin(event) {
@@ -37,13 +38,11 @@ class Signin extends Component {
 	}
 
 	render() {
+		// console.log('here are the props:', this.props.user);
 		return (
 			<div className="signin">
 				<h1>signin</h1>
-				<p>{this.props.token}</p>
-				<h2>{this.props.searchTerm}</h2>
-				<h2>{this.state.password}</h2>
-				<button onClick={this.testPageChange}>change page</button>
+				<h4>{this.props.user.email}</h4>
 				<form onSubmit={this.handleSignin}>
 					<input
 						type="text"
@@ -64,32 +63,32 @@ class Signin extends Component {
 	}
 }
 Signin.defaultProps = {
-	searchTerm: null,
 	signin: null,
-	token: null,
-	history: null, // this works but looks weird. strange that it needs a default as it is pretty much native
+	user: null,
+	history: null, // eslint-disable-line react/forbid-prop-types
+	// this works but looks weird. strange that it needs a default as it is pretty much native
 };
 
 Signin.propTypes = {
-	searchTerm: PropTypes.string,
 	signin: PropTypes.func,
-	token: PropTypes.string,
+	user: PropTypes.shape({
+		email: PropTypes.string.isRequired,
+		firstname: PropTypes.string.isRequired,
+		id: PropTypes.string.isRequired,
+		token: PropTypes.string.isRequired,
+	}),
+	// eslint-disable-next-line
 	history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 const mapStateToProps = state => ({
-	token: state.token,
-	searchTerm: state.searchTerm,
+	user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
-	// signin: user => dispatch(signinRequest(user)),
 	signin(user) {
 		dispatch(signinRequest(user));
 	},
-	// handleChange(event) {
-	// 	dispatch(setSearchTerm(event.target.value));
-	// },
 });
 
 const connectedContainer = connect(mapStateToProps, mapDispatchToProps)(Signin);

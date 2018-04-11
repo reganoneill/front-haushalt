@@ -9,46 +9,50 @@ module.exports = {
 		'react-hot-loader/patch',
 		'webpack-dev-server/client?http://localhost:8081',
 		'webpack/hot/only-dev-server',
-		'./src/components/ClientApp.jsx',
+		'./src/components/ClientApp.js'
 	],
 	devtool: 'cheap-eval-source-map',
 	output: {
 		path: path.join(__dirname, 'public'),
 		filename: 'bundle.js',
-		publicPath: '/public/',
+		publicPath: '/public/'
 	},
 	resolve: {
-		extensions: ['.js', '.jsx', '.json'],
+		extensions: ['.js', '.jsx', '.json']
 	},
 	stats: {
 		colors: true,
 		reasons: true,
-		chunks: true,
+		chunks: true
 	},
 	module: {
 		rules: [
 			{
 				enforce: 'pre',
 				test: /\.jsx?$/,
-				loader: 'eslint-loader',
-				exclude: /node_modules/,
+				// loader: 'eslint-loader',
+				exclude: /node_modules/
 			},
 			{
 				test: /\.jsx?$/,
-				loader: 'babel-loader',
+				loader: 'babel-loader'
 			},
-		],
+			{
+				test: /\.(s*)css$/,
+				use: ['style-loader', 'css-loader', 'sass-loader']
+			}
+		]
 	},
 	plugins: [
 		new webpack.DefinePlugin({
-			_BACKEND_: JSON.stringify(process.env.BACKEND),
+			_BACKEND_: JSON.stringify(process.env.BACKEND)
 		}),
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NamedModulesPlugin(),
+		new webpack.NamedModulesPlugin()
 	],
 	devServer: {
 		hot: true,
 		publicPath: '/public/',
-		historyApiFallback: true,
-	},
+		historyApiFallback: true
+	}
 };

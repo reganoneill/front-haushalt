@@ -1,0 +1,50 @@
+$navy: #001e38;
+$green: #15b78f;
+$lightGreen: #3FBF7F;
+$yellow: #faf169;
+
+html {
+  background-color: $navy;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace;
+
+  .outerListContainer {
+    background: $green;
+    width: 100em;
+    max-height: 50em;
+    overflow: scroll;
+
+    .listContainer {
+      background: $yellow;
+      border: 1px solid black;
+      max-height: 20em;
+      overflow: scroll
+    }
+
+    .trackBasicList {
+      display: flex;
+      justify-content: space-around;
+      div {
+        width: 33%
+      }
+    }
+  }
+}
+
+h1 {
+  color: $green;
+  font-weight: bold;
+  font-size: 3.5rem;
+}
+
+p {
+color: $lightGreen
+}

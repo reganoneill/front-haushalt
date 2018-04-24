@@ -22,7 +22,7 @@ export function setUser(user) {
 }
 
 export const setMainView = item => {
-	console.log('inside actionCreators...here is the argument for setting the main view:', item);
+	// console.log('inside actionCreators...here is the argument for setting the main view:', item);
 	Store.dispatch({
 		type: SET_MAIN_VIEW,
 		payload: item

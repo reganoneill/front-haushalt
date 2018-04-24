@@ -41,7 +41,7 @@ export default class TuneJam extends Component {
 		//this reads from state to see how many lists to create inside the outerListContainer element (it defaults to one).
 		return _.map(this.props.lists, (list, idx) => {
 			return (
-				<SongList key={idx} listName={list.title} primaryData={list.dataSet} />
+					<SongList key={idx} listName={list.title} primaryData={list.dataset} />
 			)
 		})
 	}
@@ -52,7 +52,6 @@ export default class TuneJam extends Component {
 		let tuneJamStyle = {
 			display: 'flex',
 			flexDirection : 'row',
-			flexWrap : 'wrap',
 			justifyContent : 'space-around',
 			alignItems : 'center',
 			height: '50em',
@@ -60,11 +59,6 @@ export default class TuneJam extends Component {
     	border: '2px white solid',
 		}
 
-		// <div className="outerListContainer">
-		// 	<SongList listName="Top Tracks All Time" primaryData={this.props.topTracksAll} />
-		// 	<SongList listName="Top Tracks 6 months" primaryData={this.props.topTracks6Months} />
-		// 	<SongList listName="Top Tracks 3 months" primaryData={this.props.topTracks3Months} />
-		// </div>
 		return (
 			<div id='appWrap'>
 				<div style={tuneJamStyle} className="tuneJamContainer">

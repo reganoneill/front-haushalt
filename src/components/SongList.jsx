@@ -25,7 +25,6 @@ export default class SongList extends Component {
 
     // option 2
     let renderSongsTable = _.map(this.props.primaryData, (track, idx) => {
-			// console.log('A TRACK:', track);
       return (<tr className="trackRow" key={idx}>
         <td className="trackData">{track.title}</td>
         <td className="trackData">{track.artist}</td>

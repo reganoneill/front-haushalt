@@ -23,9 +23,10 @@ body {
     .listContainer {
       background: $yellow;
       border: 1px solid black;
-      max-height: 20em;
+      max-height: 30em;
       overflow: scroll;
       width: 100%;
+      margin: 0 1.25em;
     }
 
     .listInnerContainer {

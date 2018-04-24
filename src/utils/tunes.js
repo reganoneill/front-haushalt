@@ -11,10 +11,11 @@ export function fetchPrimaryFavorites() {
 			console.err('ERROR:', err);
 			return err;
 		}
-
-		res.body.res.dataSet = _.orderBy(res.body.res.dataSet, ['playcount'], ['desc']);
-		console.log('all time most played:', res.body.res);
-		setMainView(res.body.res);
+		console.log('le res', res.body);
+		_.each(res.body, (obj) => {
+			obj.dataset = _.orderBy(obj.dataset, ['playcount'], ['desc']);
+		})
+		setMainView(res.body);
 		return res;
 	});
 }

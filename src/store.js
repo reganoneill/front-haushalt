@@ -18,7 +18,7 @@ const setUser = (state, action) => {
 };
 
 const setMainView = (state, action) => {
-	return Object.assign({}, state, { lists: [action.payload] });
+	return Object.assign({}, state, { lists: action.payload });
 };
 
 const setMostPlayedAll = (state, action) => {

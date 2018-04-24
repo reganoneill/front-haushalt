@@ -9,7 +9,8 @@ import {
 	SET_LISTITEM,
 	SET_MOSTPLAYED_ALL,
 	SET_MOSTPLAYED_6MONTHS,
-	SET_MOSTPLAYED_3MONTHS
+	SET_MOSTPLAYED_3MONTHS,
+	SET_MAIN_VIEW
 } from './actions';
 
 export function setUser(user) {
@@ -19,6 +20,14 @@ export function setUser(user) {
 		user
 	});
 }
+
+export const setMainView = item => {
+	console.log('inside actionCreators...here is the argument for setting the main view:', item);
+	Store.dispatch({
+		type: SET_MAIN_VIEW,
+		payload: item
+	});
+};
 
 export const setMostPlayedAll = item => {
 	console.log('inside actionCreators...here is the argument:', item);

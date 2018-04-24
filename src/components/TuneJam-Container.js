@@ -6,7 +6,8 @@ const mapStateToProps = (state, props) => {
 		user: state.user,
 		topTracksAll: state.topTracksAll,
 		topTracks6Months : state.topTracks6Months,
-		topTracks3Months : state.topTracks3Months
+		topTracks3Months : state.topTracks3Months,
+		lists     : state.lists,
 	};
 };
 

@@ -10,12 +10,22 @@ export default class TuneJam extends Component {
 	constructor(props) {
 		super(props);
 
+		this.state = {
+			//this should probably live in redux but just getting idea out there
+			// lists : [{ title: 'Top Tracks of All Time' , dataSet: mostPlayedAll }],
+
+		}
+		this.renderLists = this.renderLists.bind(this);
 	}
 
 	componentDidMount() {
 		fetchPrimaryFavorites();
-		fetch6monthsFavorites();
-		fetch3monthsFavorites();
+		// fetch6monthsFavorites();
+		// fetch3monthsFavorites();
+
+		//TODO: make this work (it probably belongs in a componentWillReceiveProps block)
+		// getLists();
+		// getListOpts();
 	}
 
 	sortByAlbum() {
@@ -24,17 +34,42 @@ export default class TuneJam extends Component {
 		allTracks = _.orderBy(allTracks, ['playcount'], ['desc']);
 	}
 
+	//TODO: right now, each SongList component is hardcoded into the page, we want to dynamically display any number of reports inside the outerListContainer
+
+	renderLists() {
+		console.log('yoyo here yo listssssss', this.props.lists);
+		//this reads from state to see how many lists to create inside the outerListContainer element (it defaults to one).
+		return _.map(this.props.lists, (list, idx) => {
+			return (
+				<SongList key={idx} listName={list.title} primaryData={list.dataSet} />
+			)
+		})
+	}
+
 	render() {
 		//testing out
-		let thing = [1, 2, 3, 4, 5, 6];
+		// let thing = [1, 2, 3, 4, 5, 6];
+		let tuneJamStyle = {
+			display: 'flex',
+			flexDirection : 'row',
+			flexWrap : 'wrap',
+			justifyContent : 'space-around',
+			alignItems : 'center',
+			height: '50em',
+    	overflow: 'scroll',
+    	border: '2px white solid',
+		}
 
+		// <div className="outerListContainer">
+		// 	<SongList listName="Top Tracks All Time" primaryData={this.props.topTracksAll} />
+		// 	<SongList listName="Top Tracks 6 months" primaryData={this.props.topTracks6Months} />
+		// 	<SongList listName="Top Tracks 3 months" primaryData={this.props.topTracks3Months} />
+		// </div>
 		return (
-			<div className="outerListContainer">
-				<SongList listName="Top Tracks All Time" primaryData={this.props.topTracksAll} />
-				<SongList listName="Top Tracks 6 months" primaryData={this.props.topTracks6Months} />
-				<SongList listName="Top Tracks 3 months" primaryData={this.props.topTracks3Months} />
-				<ListHolder listName="Top Tracks 3 months" primaryData={thing} />
-				<ListHolder listName="Top Characteristics of Tracks" primaryData={thing} />
+			<div id='appWrap'>
+				<div style={tuneJamStyle} className="tuneJamContainer">
+					{this.renderLists()}
+				</div>
 			</div>
 		);
 	}

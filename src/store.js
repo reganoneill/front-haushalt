@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-import { SET_USER, SET_MOSTPLAYED_ALL, SET_MOSTPLAYED_6MONTHS, SET_MOSTPLAYED_3MONTHS } from './actions';
+import { SET_USER, SET_MOSTPLAYED_ALL, SET_MOSTPLAYED_6MONTHS, SET_MOSTPLAYED_3MONTHS, SET_MAIN_VIEW } from './actions';
 
 const defaultState = {
 	user: {
@@ -9,11 +9,16 @@ const defaultState = {
 		id: '1010101010101',
 		token: 'tooooooken'
 	},
+	lists : [],
 	topTracksAll: [],
 };
 
 const setUser = (state, action) => {
 	return Object.assign({}, state, { user: action.payload.user });
+};
+
+const setMainView = (state, action) => {
+	return Object.assign({}, state, { lists: [action.payload] });
 };
 
 const setMostPlayedAll = (state, action) => {
@@ -40,6 +45,8 @@ const AppReducer = (state = defaultState, action) => {
 			return setTopTracks6Months(state, action);
 		case SET_MOSTPLAYED_3MONTHS:
 			return setTopTracks3Months(state, action);
+		case SET_MAIN_VIEW:
+			return setMainView(state,action);
 		default:
 			return state;
 	}

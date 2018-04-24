@@ -16,17 +16,28 @@ body {
   align-items: center;
   font-family: monospace;
 
-  .outerListContainer {
-    background: $green;
-    width: 100em;
-    max-height: 50em;
-    overflow: scroll;
+  #app, #appWrap {
+    width: 100%;
+  }
 
     .listContainer {
       background: $yellow;
       border: 1px solid black;
       max-height: 20em;
-      overflow: scroll
+      overflow: scroll;
+      width: 100%;
+    }
+
+    .listInnerContainer {
+      width: 100%;
+    }
+
+    .listTable {
+      width: 100%;
+    }
+
+    .trackData {
+      width: 33%;
     }
 
     .trackBasicList {
@@ -36,7 +47,6 @@ body {
         width: 33%
       }
     }
-  }
 }
 
 h1 {

@@ -52,6 +52,7 @@ export default class TuneJam extends Component {
 		let tuneJamStyle = {
 			display: 'flex',
 			flexDirection : 'row',
+			flexWrap : 'wrap',
 			justifyContent : 'space-around',
 			alignItems : 'center',
 			height: '50em',

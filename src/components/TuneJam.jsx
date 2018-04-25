@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Button, Modal, FormGroup, ControlLabel, FormControl, HelpBlock, FieldGroup } from 'react-bootstrap';
 import _ from 'lodash';
 import { fetchPrimaryFavorites, fetch6monthsFavorites, fetch3monthsFavorites } from '../utils/tunes';
 
@@ -52,11 +52,22 @@ export default class TuneJam extends Component {
             type="text"
             value="whoa"
             placeholder="Enter text"
-
           />
+					<FormControl
+						type="text"
+						value="whoa"
+						placeholder="Enter text"
+					/>
+					<FormControl
+						type="text"
+						value="whoa"
+						placeholder="Enter text"
+					/>
+
           <FormControl.Feedback />
           <HelpBlock>Validation is based on string length.</HelpBlock>
         </FormGroup>
+
       </form>
 		)
 	}

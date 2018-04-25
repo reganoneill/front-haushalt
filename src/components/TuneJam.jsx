@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { Button, Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import _ from 'lodash';
 import { fetchPrimaryFavorites, fetch6monthsFavorites, fetch3monthsFavorites } from '../utils/tunes';
 
@@ -13,8 +14,12 @@ export default class TuneJam extends Component {
 		this.state = {
 			//this should probably live in redux but just getting idea out there
 			// lists : [{ title: 'Top Tracks of All Time' , dataSet: mostPlayedAll }],
-
+			show : false,
 		}
+		this.showThing = this.showThing.bind(this);
+		this.renderModal = this.renderModal.bind(this);
+		this.handleClose = this.handleClose.bind(this);
+		this.renderCreateReportForm = this.renderCreateReportForm.bind(this);
 		this.renderLists = this.renderLists.bind(this);
 	}
 
@@ -35,7 +40,26 @@ export default class TuneJam extends Component {
 	}
 
 	//TODO: right now, each SongList component is hardcoded into the page, we want to dynamically display any number of reports inside the outerListContainer
+	renderCreateReportForm() {
+		return (
+			<form>
+        <FormGroup
+          controlId="formBasicText"
 
+        >
+          <ControlLabel>Working example with validation</ControlLabel>
+          <FormControl
+            type="text"
+            value="whoa"
+            placeholder="Enter text"
+
+          />
+          <FormControl.Feedback />
+          <HelpBlock>Validation is based on string length.</HelpBlock>
+        </FormGroup>
+      </form>
+		)
+	}
 	renderLists() {
 		console.log('yoyo here yo listssssss', this.props.lists);
 		//this reads from state to see how many lists to create inside the outerListContainer element (it defaults to one).
@@ -44,6 +68,41 @@ export default class TuneJam extends Component {
 					<SongList key={idx} listName={list.title} primaryData={list.dataset} />
 			)
 		})
+	}
+	renderModal() {
+		return (
+			<div>
+				<Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>New Library Report</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Text in a modal</h4>
+            <p>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </p>
+
+            <p>
+              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+              ac consectetur ac, vestibulum at eros.
+            </p>
+            {this.renderCreateReportForm()}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+			</div>
+		)
+	}
+
+	handleClose() {
+		this.setState({show : false});
+	}
+
+	showThing() {
+		this.setState({show : true});
 	}
 
 	render() {
@@ -62,8 +121,15 @@ export default class TuneJam extends Component {
 
 		return (
 			<div id='appWrap'>
+				<div className="menu">
+					<div className="hamburger"><i className="fa fa-hamburger"></i></div>
+					<div className="addIcon">
+						<i className="fa fa-plus"></i><Button type="button" className="btn btn-primary" onClick={() => this.showThing()}>Create New Report</Button>
+				</div>
+				</div>
 				<div style={tuneJamStyle} className="tuneJamContainer">
 					{this.renderLists()}
+					{this.renderModal()}
 				</div>
 			</div>
 		);

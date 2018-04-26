@@ -20,6 +20,16 @@ export function fetchPrimaryFavorites() {
 	});
 }
 
+export function buildQuery(obj) {
+	let resBody;
+	superagent
+	.post(`http://localhost:3000/api/getReport`)
+	.send(obj)
+  .then((thing) => {
+		console.log('save this to state and render it to a template-->', thing);
+	})
+}
+
 
 // export function fetch6monthsFavorites() {
 // 	let resBody;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Modal, FormGroup, ControlLabel, FormControl, HelpBlock, FieldGroup } from 'react-bootstrap';
 import _ from 'lodash';
-import { fetchPrimaryFavorites, fetch6monthsFavorites, fetch3monthsFavorites } from '../utils/tunes';
+import { fetchPrimaryFavorites, fetch6monthsFavorites, fetch3monthsFavorites, buildQuery } from '../utils/tunes';
 
 import ListHolder from './ListHolder.jsx';
 import SongList from './SongList.jsx';
@@ -23,6 +23,7 @@ export default class TuneJam extends Component {
 		this.showThing = this.showThing.bind(this);
 		this.renderModal = this.renderModal.bind(this);
 		this.handleClose = this.handleClose.bind(this);
+		this.submitView = this.submitView.bind(this);
 		this.handleFormChange = this.handleFormChange.bind(this);
 		this.renderCreateReportForm = this.renderCreateReportForm.bind(this);
 		this.renderLists = this.renderLists.bind(this);
@@ -84,7 +85,7 @@ export default class TuneJam extends Component {
           <FormControl.Feedback />
           <HelpBlock>Validation is based on string length.</HelpBlock>
         </FormGroup>
-
+				<Button bsStyle="success" onClick={this.submitView}>Create View</Button>
       </form>
 		)
 	}
@@ -133,7 +134,13 @@ export default class TuneJam extends Component {
 
 		this.setState({ [target]: val});
 	}
+	submitView(e) {
+		e.preventDefault();
+		console.log('hehehehe', e);
+		console.log(this.state);
+		buildQuery(this.state);
 
+	}
 	handleClose() {
 		this.setState({show : false});
 	}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Modal, FormGroup, ControlLabel, FormControl, HelpBlock, FieldGroup } from 'react-bootstrap';
+import DatePicker from 'react-bootstrap-date-picker';
 import _ from 'lodash';
 import { fetchPrimaryFavorites, fetch6monthsFavorites, fetch3monthsFavorites, buildQuery } from '../utils/tunes';
 
@@ -19,6 +20,7 @@ export default class TuneJam extends Component {
 			artist  : '',
 			album   : '',
 			genre   : '',
+			date    : ''
 		}
 		this.showThing = this.showThing.bind(this);
 		this.renderModal = this.renderModal.bind(this);
@@ -52,14 +54,16 @@ export default class TuneJam extends Component {
           controlId="formBasicText"
 
         >
-          <ControlLabel></ControlLabel>
+          <ControlLabel>keyword</ControlLabel>
           <FormControl
             type="text"
+						label="keyword"
 						name="keyword"
 						onChange={this.handleFormChange}
             value={this.state.keyword}
             placeholder="keyword"
           />
+					<ControlLabel>artist</ControlLabel>
 					<FormControl
 						type="text"
 						name="artist"
@@ -67,6 +71,7 @@ export default class TuneJam extends Component {
 						value={this.state.artist}
 						placeholder="artist"
 					/>
+					<ControlLabel>album</ControlLabel>
 					<FormControl
 						type="text"
 						name="album"
@@ -74,6 +79,7 @@ export default class TuneJam extends Component {
 						value={this.state.album}
 						placeholder="album"
 					/>
+					<ControlLabel>genre</ControlLabel>
 					<FormControl
 						type="text"
 						name="genre"
@@ -84,6 +90,7 @@ export default class TuneJam extends Component {
 
           <FormControl.Feedback />
           <HelpBlock>Validation is based on string length.</HelpBlock>
+					<DatePicker id="formDatepicker" value={this.state.date} onChange={this.handleChange} />
         </FormGroup>
 				<Button bsStyle="success" onClick={this.submitView}>Create View</Button>
       </form>
@@ -127,8 +134,6 @@ export default class TuneJam extends Component {
 	}
 
 	handleFormChange(e) {
-		console.log('getting here with this -->', e.target.name);
-		console.log('and the whole nasty thing:', e.target.value);
 		let target = e.target.name;
 		let val = e.target.value
 
@@ -136,7 +141,6 @@ export default class TuneJam extends Component {
 	}
 	submitView(e) {
 		e.preventDefault();
-		console.log('hehehehe', e);
 		console.log(this.state);
 		buildQuery(this.state);
 

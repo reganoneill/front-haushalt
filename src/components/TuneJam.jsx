@@ -14,11 +14,16 @@ export default class TuneJam extends Component {
 		this.state = {
 			//this should probably live in redux but just getting idea out there
 			// lists : [{ title: 'Top Tracks of All Time' , dataSet: mostPlayedAll }],
-			show : false,
+			show    : false,
+			keyword : '',
+			artist  : '',
+			album   : '',
+			genre   : '',
 		}
 		this.showThing = this.showThing.bind(this);
 		this.renderModal = this.renderModal.bind(this);
 		this.handleClose = this.handleClose.bind(this);
+		this.handleFormChange = this.handleFormChange.bind(this);
 		this.renderCreateReportForm = this.renderCreateReportForm.bind(this);
 		this.renderLists = this.renderLists.bind(this);
 	}
@@ -39,7 +44,6 @@ export default class TuneJam extends Component {
 		allTracks = _.orderBy(allTracks, ['playcount'], ['desc']);
 	}
 
-	//TODO: right now, each SongList component is hardcoded into the page, we want to dynamically display any number of reports inside the outerListContainer
 	renderCreateReportForm() {
 		return (
 			<form>
@@ -47,21 +51,34 @@ export default class TuneJam extends Component {
           controlId="formBasicText"
 
         >
-          <ControlLabel>Working example with validation</ControlLabel>
+          <ControlLabel></ControlLabel>
           <FormControl
             type="text"
-            value="whoa"
-            placeholder="Enter text"
+						name="keyword"
+						onChange={this.handleFormChange}
+            value={this.state.keyword}
+            placeholder="keyword"
           />
 					<FormControl
 						type="text"
-						value="whoa"
-						placeholder="Enter text"
+						name="artist"
+						onChange={this.handleFormChange}
+						value={this.state.artist}
+						placeholder="artist"
 					/>
 					<FormControl
 						type="text"
-						value="whoa"
-						placeholder="Enter text"
+						name="album"
+						onChange={this.handleFormChange}
+						value={this.state.album}
+						placeholder="album"
+					/>
+					<FormControl
+						type="text"
+						name="genre"
+						onChange={this.handleFormChange}
+						value={this.state.genre}
+						placeholder="genre"
 					/>
 
           <FormControl.Feedback />
@@ -106,6 +123,15 @@ export default class TuneJam extends Component {
         </Modal>
 			</div>
 		)
+	}
+
+	handleFormChange(e) {
+		console.log('getting here with this -->', e.target.name);
+		console.log('and the whole nasty thing:', e.target.value);
+		let target = e.target.name;
+		let val = e.target.value
+
+		this.setState({ [target]: val});
 	}
 
 	handleClose() {

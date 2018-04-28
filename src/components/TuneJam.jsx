@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Modal, FormGroup, ControlLabel, FormControl, HelpBlock, FieldGroup } from 'react-bootstrap';
+import { Button, Modal, FormGroup, ControlLabel, FormControl, HelpBlock, FieldGroup, DropdownButton, MenuItem, SplitButton } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import _ from 'lodash';
 import { fetchPrimaryFavorites, fetch6monthsFavorites, fetch3monthsFavorites, buildQuery } from '../utils/tunes';
@@ -13,14 +13,14 @@ export default class TuneJam extends Component {
 		super(props);
 
 		this.state = {
-			//this should probably live in redux but just getting idea out there
-			// lists : [{ title: 'Top Tracks of All Time' , dataSet: mostPlayedAll }],
 			show    : false,
 			keyword : '',
 			artist  : '',
 			album   : '',
 			genre   : '',
-			date    : ''
+			year    : '',
+			insightDropdown : '',
+			specifyInsight: ''
 		}
 		this.showThing = this.showThing.bind(this);
 		this.renderModal = this.renderModal.bind(this);
@@ -33,12 +33,7 @@ export default class TuneJam extends Component {
 
 	componentDidMount() {
 		fetchPrimaryFavorites();
-		// fetch6monthsFavorites();
-		// fetch3monthsFavorites();
 
-		//TODO: make this work (it probably belongs in a componentWillReceiveProps block)
-		// getLists();
-		// getListOpts();
 	}
 
 	sortByAlbum() {
@@ -50,48 +45,14 @@ export default class TuneJam extends Component {
 	renderCreateReportForm() {
 		return (
 			<form>
-        <FormGroup
-          controlId="formBasicText"
-
-        >
-          <ControlLabel>keyword</ControlLabel>
-          <FormControl
-            type="text"
-						label="keyword"
-						name="keyword"
-						onChange={this.handleFormChange}
-            value={this.state.keyword}
-            placeholder="keyword"
-          />
-					<ControlLabel>artist</ControlLabel>
-					<FormControl
-						type="text"
-						name="artist"
-						onChange={this.handleFormChange}
-						value={this.state.artist}
-						placeholder="artist"
-					/>
-					<ControlLabel>album</ControlLabel>
-					<FormControl
-						type="text"
-						name="album"
-						onChange={this.handleFormChange}
-						value={this.state.album}
-						placeholder="album"
-					/>
-					<ControlLabel>genre</ControlLabel>
-					<FormControl
-						type="text"
-						name="genre"
-						onChange={this.handleFormChange}
-						value={this.state.genre}
-						placeholder="genre"
-					/>
-
-          <FormControl.Feedback />
-          <HelpBlock>Validation is based on string length.</HelpBlock>
-					<DatePicker id="formDatepicker" value={this.state.date} onChange={this.handleChange} />
-        </FormGroup>
+				<SplitButton title="Choose an option">
+					<MenuItem name="keyword" eventKey="1" onClick={this.handleFormChange}>keyword</MenuItem>
+					<MenuItem name="artist" eventKey="2" onClick={this.handleFormChange}>artist</MenuItem>
+					<MenuItem name="album" eventKey="3"  onClick={this.handleFormChange} active>album</MenuItem>
+					<MenuItem name="year" eventKey="4" onClick={this.handleFormChange}>year</MenuItem>
+					<MenuItem name="genre" eventKey="5" onClick={this.handleFormChange}>genre</MenuItem>
+				</SplitButton>
+				{/* method to dynamically display input field based on selection */}
 				<Button bsStyle="success" onClick={this.submitView}>Create View</Button>
       </form>
 		)
@@ -113,16 +74,7 @@ export default class TuneJam extends Component {
             <Modal.Title>New Library Report</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Text in a modal</h4>
-            <p>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
-
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-              ac consectetur ac, vestibulum at eros.
-            </p>
+            <h4>Choose Insight</h4>
             {this.renderCreateReportForm()}
           </Modal.Body>
           <Modal.Footer>
@@ -135,9 +87,10 @@ export default class TuneJam extends Component {
 
 	handleFormChange(e) {
 		let target = e.target.name;
-		let val = e.target.value
-
-		this.setState({ [target]: val});
+		// let val = e.target.value
+		// console.log(`here is what we are dealing with --> ${target}, and ${val}`);
+		// this.setState({ [target]: val});
+		this.setState({ insightDropdown: target});
 	}
 	submitView(e) {
 		e.preventDefault();

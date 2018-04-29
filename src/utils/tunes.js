@@ -1,7 +1,7 @@
 import superagent from 'superagent';
 import _ from 'lodash';
 import async from 'async';
-import { setMostPlayedAll, setMostPlayed6months, setMostPlayed3months, setMainView } from '../actionCreators';
+import { setMostPlayedAll, setMostPlayed6months, setMostPlayed3months, setMainView, setTempView } from '../actionCreators';
 
 
 export function fetchPrimaryFavorites() {
@@ -21,12 +21,20 @@ export function fetchPrimaryFavorites() {
 }
 
 export function buildQuery(obj) {
-	let resBody;
+	let resBody = {};
 	superagent
 	.post(`http://localhost:3000/api/getReport`)
 	.send(obj)
-  .then((thing) => {
-		console.log('save this to state and render it to a template-->', thing);
+  .then((res) => {
+		console.log('save this to state and render it to a template-->', res);
+		if (res.body.meta.rowCount < 1) {
+			//return no results came back message
+		}
+		//save to state as another list --> how to we do this in the other initial load function?
+		resBody.dataset = _.orderBy(res.body.res, ['playcount'], ['desc']);
+		resBody.title = 'Best Title Ever';
+		setTempView(resBody);
+		return;
 	})
 }
 

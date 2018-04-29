@@ -8,6 +8,7 @@ const mapStateToProps = (state, props) => {
 		topTracks6Months : state.topTracks6Months,
 		topTracks3Months : state.topTracks3Months,
 		lists     : state.lists,
+		tempLists : state.tempLists
 	};
 };
 

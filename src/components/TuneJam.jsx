@@ -30,6 +30,7 @@ export default class TuneJam extends Component {
 		this.renderCreateReportForm = this.renderCreateReportForm.bind(this);
 		this.renderInsightSpecificationField = this.renderInsightSpecificationField.bind(this);
 		this.renderLists = this.renderLists.bind(this);
+		this.renderTempLists = this.renderTempLists.bind(this);
 	}
 
 	componentDidMount() {
@@ -83,6 +84,19 @@ export default class TuneJam extends Component {
 			)
 		})
 	}
+
+	renderTempLists() {
+		console.log('temp lists:', this.props.tempLists);
+		if (!this.props.tempLists.length) {
+			return null;
+		}
+		return _.map(this.props.tempLists, (list, idx) => {
+			return (
+					<SongList key={idx} listName={list.title} primaryData={list.dataset} />
+			)
+		})
+	}
+
 	renderModal() {
 		return (
 			<div>
@@ -150,6 +164,7 @@ export default class TuneJam extends Component {
 				</div>
 				<div style={tuneJamStyle} className="tuneJamContainer">
 					{this.renderLists()}
+					{this.renderTempLists()}
 					{this.renderModal()}
 				</div>
 			</div>

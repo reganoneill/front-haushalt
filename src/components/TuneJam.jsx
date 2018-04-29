@@ -70,12 +70,15 @@ export default class TuneJam extends Component {
 					<MenuItem name="album" eventKey="3"  onClick={this.handleFormChange}>album</MenuItem>
 					<MenuItem name="year" eventKey="4" onClick={this.handleFormChange}>year</MenuItem>
 					<MenuItem name="genre" eventKey="5" onClick={this.handleFormChange}>genre</MenuItem>
+					<MenuItem divider />
+					<MenuItem name="artists" eventKey="6" onClick={this.handleFormChange}>top artists</MenuItem>
 				</SplitButton>
 				{this.renderInsightSpecificationField()}
 				<Button bsStyle="success" onClick={this.submitView}>Create View</Button>
       </form>
 		)
 	}
+
 	renderLists() {
 		console.log('lists:', this.props.lists);
 		return _.map(this.props.lists, (list, idx) => {

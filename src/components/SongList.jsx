@@ -25,30 +25,61 @@ export default class SongList extends Component {
 
     // option 2
     let renderSongsTable = _.map(this.props.primaryData, (track, idx) => {
-      return (<tr className="trackRow" key={idx}>
-        <td className="trackData">{track.title}</td>
-        <td className="trackData">{track.artist}</td>
-        <td className="trackData">{track.playcount}</td>
-      </tr>)
+			if(this.props.listName === 'Top artists') {
+				return (
+					<tr className="trackRow" key={idx}>
+						<td className="trackData">{track.artistname}</td>
+						<td className="trackData">{track.plays}</td>
+					</tr>
+				)
+			} else {
+      return (
+				<tr className="trackRow" key={idx}>
+	        <td className="trackData">{track.title}</td>
+	        <td className="trackData">{track.artist}</td>
+	        <td className="trackData">{track.playcount}</td>
+      	</tr>
+			)
+			}
     })
-    //bring in bootstrap-react and get Table component?
-		return (
-			<div className="listContainer">
-				<h3>{this.props.listName}</h3>
-				<div className="listInnerContainer">
-					<table className="listTable">
-            <thead className="songsTableHeader">
-              <th>track</th>
-              <th>artist</th>
-              <th>playcount</th>
-            </thead>
-            <tbody className="songsTableBody">
-              {renderSongsTable}
-            </tbody>
-          </table>
+
+
+		if(this.props.listName === 'Top artists') {
+			return (
+				<div className="listContainer">
+					<h3>{this.props.listName}</h3>
+					<div className="listInnerContainer">
+						<table className="listTable">
+							<thead className="songsTableHeader">
+								<th>artist</th>
+								<th>playcount</th>
+							</thead>
+							<tbody className="songsTableBody">
+								{renderSongsTable}
+							</tbody>
+						</table>
+					</div>
 				</div>
-			</div>
-		);
+			);
+		} else {
+			return (
+				<div className="listContainer">
+					<h3>{this.props.listName}</h3>
+					<div className="listInnerContainer">
+						<table className="listTable">
+	            <thead className="songsTableHeader">
+	              <th>track</th>
+	              <th>artist</th>
+	              <th>playcount</th>
+	            </thead>
+	            <tbody className="songsTableBody">
+	              {renderSongsTable}
+	            </tbody>
+	          </table>
+					</div>
+				</div>
+			);
+		}
 	}
 }
 

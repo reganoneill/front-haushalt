@@ -44,8 +44,6 @@ export default class TuneJam extends Component {
 	}
 
 	renderInsightSpecificationField() {
-		//somegtingh like this:
-		// if(this.state.insightDropdown) {
 			switch(this.state.insightDropdown){
 				case 'artist':
 					return <FormControl type="text" name="artist" value={this.state.artist} placeholder="Enter Arist Name" onChange={this.handleFormChange}/>;
@@ -60,7 +58,6 @@ export default class TuneJam extends Component {
 				default:
 					return null;
 			}
-		// }
 	}
 
 	renderCreateReportForm() {
@@ -69,19 +66,17 @@ export default class TuneJam extends Component {
 				<SplitButton title={this.state.insightDropdown}>
 					<MenuItem name="keyword" eventKey="1" onClick={this.handleFormChange}>keyword</MenuItem>
 					<MenuItem name="artist" eventKey="2" onClick={this.handleFormChange}>artist</MenuItem>
-					<MenuItem name="album" eventKey="3"  onClick={this.handleFormChange} active>album</MenuItem>
+					<MenuItem name="album" eventKey="3"  onClick={this.handleFormChange}>album</MenuItem>
 					<MenuItem name="year" eventKey="4" onClick={this.handleFormChange}>year</MenuItem>
 					<MenuItem name="genre" eventKey="5" onClick={this.handleFormChange}>genre</MenuItem>
 				</SplitButton>
-				{/* method to dynamically display input field based on selection */}
 				{this.renderInsightSpecificationField()}
 				<Button bsStyle="success" onClick={this.submitView}>Create View</Button>
       </form>
 		)
 	}
 	renderLists() {
-		console.log('yoyo here yo listssssss', this.props.lists);
-		//this reads from state to see how many lists to create inside the outerListContainer element (it defaults to one).
+		console.log('lists:', this.props.lists);
 		return _.map(this.props.lists, (list, idx) => {
 			return (
 					<SongList key={idx} listName={list.title} primaryData={list.dataset} />
@@ -98,7 +93,6 @@ export default class TuneJam extends Component {
           <Modal.Body>
             <h4>Choose Insight</h4>
             {this.renderCreateReportForm()}
-						{/* {this.renderInsightSpecificationField} */}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>
@@ -117,7 +111,7 @@ export default class TuneJam extends Component {
 			this.setState({ insightDropdown : target });
 		}
 	}
-	
+
 	submitView(e) {
 		e.preventDefault();
 		console.log(this.state);

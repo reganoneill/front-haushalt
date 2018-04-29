@@ -30,6 +30,13 @@ export function buildQuery(obj) {
 		if (res.body.meta.rowCount < 1) {
 			//return no results came back message
 		}
+		if(obj.insightDropdown === 'artists') {
+			resBody.dataset = res.body.res;
+			resBody.title = res.body.title;
+			resBody.tip = 'topArtists';
+			setTempView(resBody);
+			return;
+		}
 		resBody.dataset = _.orderBy(res.body.res, ['playcount'], ['desc']);
 		resBody.title = res.body.title;
 		setTempView(resBody);

@@ -23,12 +23,9 @@ const setMainView = (state, action) => {
 };
 
 const setTempView = (state, action) => {
-
-	let tempLists = _.cloneDeep(state.tempLists);
-	console.log('whoooooa just cloned this------->', tempLists);
-	let newList = _.extend(tempLists, action.payload);
-	console.log('whoooooa we are in redux------->', newList);
-	return Object.assign({}, state, { tempLists: newList });
+	let temp = state.tempLists;
+	temp.push(action.payload);
+	return Object.assign({}, state, { tempLists: temp });
 };
 
 const setMostPlayedAll = (state, action) => {

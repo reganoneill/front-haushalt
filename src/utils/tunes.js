@@ -30,9 +30,8 @@ export function buildQuery(obj) {
 		if (res.body.meta.rowCount < 1) {
 			//return no results came back message
 		}
-		//save to state as another list --> how to we do this in the other initial load function?
 		resBody.dataset = _.orderBy(res.body.res, ['playcount'], ['desc']);
-		resBody.title = 'Best Title Ever';
+		resBody.title = res.body.title;
 		setTempView(resBody);
 		return;
 	})

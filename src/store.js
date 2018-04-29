@@ -40,8 +40,6 @@ const setTopTracks3Months = (state, action) => {
 	return Object.assign({}, state, { topTracks3Months: action.payload });
 };
 
-
-
 const AppReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case SET_USER:

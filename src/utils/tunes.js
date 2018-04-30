@@ -8,7 +8,7 @@ export function fetchPrimaryFavorites() {
 	let resBody;
 	superagent.get(`http://localhost:3000/api/loadMainView`).end((err, res) => {
 		if (err) {
-			console.err('ERROR:', err);
+			console.error('ERROR:', err);
 			return err;
 		}
 		console.log('le res', res.body);

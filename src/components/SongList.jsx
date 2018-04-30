@@ -47,9 +47,11 @@ export default class SongList extends Component {
 		if(this.props.listName === 'Top artists') {
 			return (
 				<div className="listContainer">
-					<h3>{this.props.listName}</h3>
+					<div className="tableName">
+						<h3>{this.props.listName}</h3>
+					</div>
 					<div className="listInnerContainer">
-						<table className="listTable">
+						<table className="listTable table table-striped sticky-header">
 							<thead className="songsTableHeader">
 								<th>artist</th>
 								<th>playcount</th>
@@ -64,9 +66,11 @@ export default class SongList extends Component {
 		} else {
 			return (
 				<div className="listContainer">
-					<h3>{this.props.listName}</h3>
+					<div className="tableName">
+						<h3>{this.props.listName}</h3>
+					</div>
 					<div className="listInnerContainer">
-						<table className="listTable">
+						<table className="listTable table table-striped sticky-header">
 	            <thead className="songsTableHeader">
 	              <th>track</th>
 	              <th>artist</th>

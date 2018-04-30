@@ -23,18 +23,25 @@ body {
     .listContainer {
       background: $yellow;
       border: 1px solid black;
-      max-height: 30em;
-      overflow: scroll;
+      // max-height: 30em;
+      // overflow: scroll;
       width: 33%;
       margin-bottom: 3px;
     }
 
     .listInnerContainer {
       width: 100%;
+      max-height: 30em;
+      overflow: scroll;
     }
 
     .listTable {
+      // position: fixed;
+      // top: 0;
       width: 100%;
+      th {
+        text-align: inherit;
+      }
     }
 
     .trackData {

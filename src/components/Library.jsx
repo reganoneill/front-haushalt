@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import _ from 'lodash';
-import { fetchEntireLibrary } from '../utils/tunes';
+import { fetchEntireLibrary , backupTrack} from '../utils/tunes';
 
 
 export default class Library extends Component {
@@ -17,6 +17,7 @@ export default class Library extends Component {
         this.renderSongsTable = this.renderSongsTable.bind(this);
         this.renderBackup = this.renderBackup.bind(this);
         this.renderBackupOrPlay = this.renderBackupOrPlay.bind(this);
+        this.backUpTrack = this.backUpTrack.bind(this);
     };
 
     componentDidMount(){
@@ -32,6 +33,12 @@ export default class Library extends Component {
 
     componentWillReceiveProps(next){
         console.log('here are your props:', next.library);
+    };
+
+    backUpTrack(track){
+        console.log(`you just hit backUpTrack with this id which we'll use to upload this track to s3: ${track}`);
+        //send back to server and begin uploading to s3.
+        backupTrack(track);
     }
 
     renderPlay() {
@@ -52,7 +59,7 @@ export default class Library extends Component {
     }
 
     renderBackupOrPlay(track){
-        console.log(track);
+        // console.log(track);
         if(track.backedUp){
             return (
                 <span>
@@ -61,7 +68,7 @@ export default class Library extends Component {
             );
         } else {
             return (
-                <span>
+                <span onClick={(e) => this.backUpTrack(track.id)}>
                  backup
                 </span>
             )
@@ -76,7 +83,6 @@ export default class Library extends Component {
                         <td className="trackData">{track.artist}</td>
                         <td className="trackData">{track.playcount}</td>
                         <td className="trackData">{this.renderBackupOrPlay(track)}</td>
-                        {/* <td className="trackData">{track.backedUp ? {renderPlay} : {renderBackup()} }</td> */}
                     </tr>
                     )
         });

@@ -29,6 +29,15 @@ export function fetchEntireLibrary() {
 	});
 }
 
+export function backupTrack(trackid) {
+	return new Promise((resolve, reject) => {
+		console.log('backupTrack');
+		superagent.post(`http://localhost:3000/api/backupTrack`).send({id: trackid}).then((thing) => {
+			console.log('what is this', thing);
+		})
+	});
+};
+
 
 export function fetchPrimaryFavorites() {
 	let resBody;
@@ -70,22 +79,22 @@ export function buildQuery(obj) {
 	})
 };
 
-export function backupTrack(obj) {
-	console.log('sending this to the server -->', obj);
+// export function backupTrack(obj) {
+// 	console.log('sending this to the server -->', obj);
 
-	//var myFormData = new FormData();
-	// myFormData.append('pictureFile', pictureInput.files[0]);
-	// return;
-	// const data = new FormData();
-	// data.append('serverPath', obj.location, obj.id);
-	// data.append('track', JSON.stringify(obj));
+// 	//var myFormData = new FormData();
+// 	// myFormData.append('pictureFile', pictureInput.files[0]);
+// 	// return;
+// 	// const data = new FormData();
+// 	// data.append('serverPath', obj.location, obj.id);
+// 	// data.append('track', JSON.stringify(obj));
 
-	// console.log('the data--->', data);
-	// return;
-	superagent.post('http://localhost:3000/api/addToCloud').send(obj).then((res) => {
-		console.log('here is the res! -->', res);
-	});
-}
+// 	// console.log('the data--->', data);
+// 	// return;
+// 	superagent.post('http://localhost:3000/api/addToCloud').send(obj).then((res) => {
+// 		console.log('here is the res! -->', res);
+// 	});
+// }
 
 export function uploadTrack(obj){
 	console.log('here is the object we are sending:', obj);

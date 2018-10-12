@@ -12,6 +12,11 @@ export default class Library extends Component {
         this.state = {
             test : 'yo'
         };
+
+        this.renderPlay = this.renderPlay.bind(this);
+        this.renderSongsTable = this.renderSongsTable.bind(this);
+        this.renderBackup = this.renderBackup.bind(this);
+        this.renderBackupOrPlay = this.renderBackupOrPlay.bind(this);
     };
 
     componentDidMount(){
@@ -26,19 +31,59 @@ export default class Library extends Component {
     };
 
     componentWillReceiveProps(next){
-        console.log('here are your props:', next);
+        console.log('here are your props:', next.library);
     }
 
-    render(){
-        let renderSongsTable = _.map(this.props.library, (track, idx) => {
+    renderPlay() {
+        return (
+            <span>
+                <p>plaay</p>
+            </span>
+        )
+    };
+
+    renderBackup(){
+        console.log('ooook')
+        return (
+            <span>
+                <p>backuuuuup</p>
+            </span>
+        )
+    }
+
+    renderBackupOrPlay(track){
+        console.log(track);
+        if(track.backedUp){
+            return (
+                <span>
+                 play
+                </span>
+            );
+        } else {
+            return (
+                <span>
+                 backup
+                </span>
+            )
+        }
+    }
+
+    renderSongsTable() {
+       return _.map(this.props.library, (track, idx) => {
             return (
                     <tr className="trackRow" key={idx}>
                         <td className="trackData">{track.title}</td>
                         <td className="trackData">{track.artist}</td>
                         <td className="trackData">{track.playcount}</td>
+                        <td className="trackData">{this.renderBackupOrPlay(track)}</td>
+                        {/* <td className="trackData">{track.backedUp ? {renderPlay} : {renderBackup()} }</td> */}
                     </tr>
                     )
         });
+    };
+
+    render(){
+
         return(
             <div className="libraryContainer">
 				<div className="tableName">
@@ -50,9 +95,10 @@ export default class Library extends Component {
                         <th>track</th>
                         <th>artist</th>
                         <th>playcount</th>
+                        <th>play/backup</th>
                     </thead>
                     <tbody className="songsTableBody">
-                        {renderSongsTable}
+                        {this.renderSongsTable()}
                     </tbody>
                     </table>
 				</div>

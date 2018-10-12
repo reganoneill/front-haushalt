@@ -5,8 +5,16 @@ import store from '../store';
 import Signin from './Signin';
 import Dash from './Dash';
 import TuneJam from './TuneJam-Container';
+import SaveJam from './SaveJam-Container';
+import Library from './Library-Container';
 
-const Forofor = () => <h1>oh no</h1>;
+const Forofor = () => {
+return (
+	<div>
+		<h1>oh no</h1>
+	</div>
+)
+};
 
 const App = () => (
 	<BrowserRouter>
@@ -16,6 +24,8 @@ const App = () => (
 					<Route path="/signin" component={Signin} />
 					<Route path="/dash/:email" component={Dash} />
 					<Route path="/tuneJam" component={TuneJam} />
+					<Route path="/saveJams" component={SaveJam} />
+					<Route path="/library" component={Library} />
 					<Route component={Forofor} />
 				</Switch>
 			</div>

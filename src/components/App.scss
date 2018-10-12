@@ -20,13 +20,29 @@ body {
     width: 100%;
   }
 
+  .table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+    color: white;
+    background-color: #001e38;
+ }
+
     .listContainer {
       background: $yellow;
       border: 1px solid black;
-      // max-height: 30em;
-      // overflow: scroll;
       width: 33%;
       margin-bottom: 3px;
+    }
+
+    .libraryContainer {
+      background: $navy;
+      border: 1px solid black;
+      width: 93%;
+      margin-bottom: 3px;
+
+      .tableName {
+        h3 {
+          color: white;
+        }
+      }
     }
 
     .listInnerContainer {
@@ -36,10 +52,9 @@ body {
     }
 
     .listTable {
-      // position: fixed;
-      // top: 0;
       width: 100%;
       th {
+        color: white;
         text-align: inherit;
       }
     }

@@ -1,17 +1,27 @@
 import { createStore } from 'redux';
 
-import { SET_USER, SET_MOSTPLAYED_ALL, SET_MOSTPLAYED_6MONTHS, SET_MOSTPLAYED_3MONTHS, SET_MAIN_VIEW, SET_TEMP_VIEW } from './actions';
+import { SET_LIBRARY, SET_USER, SET_MOSTPLAYED_ALL, SET_MOSTPLAYED_6MONTHS, SET_MOSTPLAYED_3MONTHS, SET_MAIN_VIEW, SET_TEMP_VIEW, SET_UPLOADER_VIEW } from './actions';
 
 const defaultState = {
 	user: {
 		email: 'email@gmail',
 		firstname: 'first name',
 		id: '1010101010101',
-		token: 'tooooooken'
+		token: 'token'
 	},
+	library : {yo_wut_up: 'yo wut up'},
 	lists : [],
 	tempLists : [],
 	topTracksAll: [],
+	uploader    : false
+};
+
+const setUploaderView = (state, action) => {
+	return Object.assign({}, state, { uploader : action.payload.uploader });
+};
+
+const setLibrary = (state, action) => {
+	return Object.assign({}, state, { library: action.payload });
 };
 
 const setUser = (state, action) => {
@@ -54,6 +64,8 @@ const AppReducer = (state = defaultState, action) => {
 			return setMainView(state,action);
 		case SET_TEMP_VIEW:
 			return setTempView(state,action);
+		case SET_LIBRARY:
+			return setLibrary(state, action);
 		default:
 			return state;
 	}

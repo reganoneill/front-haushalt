@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import TuneJam from './TuneJam.jsx';
+import SaveJam from './SaveJam.jsx';
 
 const mapStateToProps = (state, props) => {
 	return {
@@ -8,10 +8,8 @@ const mapStateToProps = (state, props) => {
 		topTracks6Months : state.topTracks6Months,
 		topTracks3Months : state.topTracks3Months,
 		lists     : state.lists,
-		tempLists : state.tempLists,
-		uploader    : state.uploader,
-		library     : state.library,
+		tempLists : state.tempLists
 	};
 };
 
-export default connect(mapStateToProps)(TuneJam);
+export default connect(mapStateToProps)(SaveJam);

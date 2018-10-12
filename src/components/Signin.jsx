@@ -38,7 +38,6 @@ class Signin extends Component {
 	}
 
 	render() {
-		// console.log('here are the props:', this.props.user);
 		return (
 			<div className="signin">
 				<h1>signin</h1>

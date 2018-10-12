@@ -11,8 +11,25 @@ import {
 	SET_MOSTPLAYED_6MONTHS,
 	SET_MOSTPLAYED_3MONTHS,
 	SET_MAIN_VIEW,
-	SET_TEMP_VIEW
+	SET_TEMP_VIEW,
+	SET_UPLOADER_VIEW,
+	SET_LIBRARY
 } from './actions';
+
+export const setUploaderView = item => {
+	Store.dispatch({
+		type: SET_UPLOADER_VIEW,
+		payload: item
+	});
+};
+
+export const setLibrary = item => {
+	Store.dispatch({
+		type: SET_LIBRARY,
+		payload: item
+	});
+};
+
 
 export function setUser(user) {
 
@@ -23,7 +40,6 @@ export function setUser(user) {
 }
 
 export const setMainView = item => {
-	// console.log('inside actionCreators...here is the argument for setting the main view:', item);
 	Store.dispatch({
 		type: SET_MAIN_VIEW,
 		payload: item
@@ -68,8 +84,6 @@ export const signinRequest = user => {
 		.post(`http://localhost:8080/signin`)
 		.send(user)
 		.then(res => {
-			console.log('our res!!!!!!', res);
-
 			const yourUser = _.assign(
 				{},
 				{
@@ -77,7 +91,7 @@ export const signinRequest = user => {
 					firstname: res.body.firstname,
 					id: JSON.stringify(res.body.id),
 					token: res.body.token,
-					yowutUp: 'hehehehe'
+					yowutUp: 'yo wut up'
 				}
 			);
 			document.cookie = `token=${res.body.token}`;

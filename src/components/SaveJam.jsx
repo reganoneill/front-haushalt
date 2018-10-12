@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
+import SongList from './SongList.jsx';
+
+
 import { withRouter } from 'react-router-dom';
 import { Button, Modal, FormGroup, ControlLabel, FormControl, HelpBlock, FieldGroup, DropdownButton, MenuItem, SplitButton } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import _ from 'lodash';
-import { fetchPrimaryFavorites, fetch6monthsFavorites, fetch3monthsFavorites, buildQuery } from '../utils/tunes';
+import { fetchPrimaryFavorites, getLoved, fetch6monthsFavorites, fetch3monthsFavorites, buildQuery } from '../utils/tunes';
 
-import ListHolder from './ListHolder.jsx';
-import SongList from './SongList.jsx';
-
-export default class TuneJam extends Component {
-	constructor(props) {
+export default class SaveJam extends Component {
+    constructor(props) {
 		super(props);
 
 		this.state = {
@@ -31,16 +31,15 @@ export default class TuneJam extends Component {
 		this.renderInsightSpecificationField = this.renderInsightSpecificationField.bind(this);
 		this.renderLists = this.renderLists.bind(this);
 		this.renderTempLists = this.renderTempLists.bind(this);
-		this.renderUploadView = this.renderUploadView.bind(this);
-		this.showUploadView = this.showUploadView.bind(this);
 	}
 
 	componentDidMount() {
-		fetchPrimaryFavorites();
+		getLoved();
 	}
 
 	sortByAlbum() {
 		let allTracks = this.props.topTracksAll;
+
 		allTracks = _.orderBy(allTracks, ['playcount'], ['desc']);
 	}
 
@@ -79,15 +78,11 @@ export default class TuneJam extends Component {
 		)
 	}
 
-	determineUploadView(){
-
-	}
-
 	renderLists() {
 		console.log('lists:', this.props.lists);
 		return _.map(this.props.lists, (list, idx) => {
 			return (
-					<SongList key={idx} listName={list.title} primaryData={list.dataset} uploadView={list.uploadView} updateUploadView={this.showUploadView}/>
+					<SongList key={idx} listName={list.title} primaryData={list.dataset} />
 			)
 		})
 	}
@@ -108,17 +103,17 @@ export default class TuneJam extends Component {
 		return (
 			<div>
 				<Modal show={this.state.show} onHide={this.handleClose}>
-					<Modal.Header closeButton>
-						<Modal.Title>New Library Report</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>
-						<h4>Choose Insight</h4>
-						{this.renderCreateReportForm()}
-					</Modal.Body>
-					<Modal.Footer>
-						<Button onClick={this.handleClose}>Close</Button>
-					</Modal.Footer>
-				</Modal>
+          <Modal.Header closeButton>
+            <Modal.Title>New Library Report</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Choose Insight</h4>
+            {this.renderCreateReportForm()}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
 			</div>
 		)
 	}
@@ -135,21 +130,12 @@ export default class TuneJam extends Component {
 
 	submitView(e) {
 		e.preventDefault();
+		console.log(this.state);
 		buildQuery(this.state);
 
 	}
-
-	renderUploadView() {
-
-	}
-
-
 	handleClose() {
 		this.setState({show : false});
-	}
-
-	showUploadView(list){
-		console.log('showUploadView - list -->', list);
 	}
 
 	showThing() {
@@ -184,4 +170,4 @@ export default class TuneJam extends Component {
 			</div>
 		);
 	}
-}
+};

@@ -1,7 +1,33 @@
 import superagent from 'superagent';
 import _ from 'lodash';
 import async from 'async';
-import { setMostPlayedAll, setMostPlayed6months, setMostPlayed3months, setMainView, setTempView } from '../actionCreators';
+import { setLibrary, setMostPlayedAll, setMostPlayed6months, setMostPlayed3months, setMainView, setTempView } from '../actionCreators';
+// import multer from 'multer';
+// import AWS from 'aws-sdk';
+
+
+// const s3 = new AWS.S3();
+
+// var uploadStore = __dirname + '/../uploads';
+// console.log(uploadStore);
+// var upload = multer({dest: uploadStore });
+
+
+
+export function fetchEntireLibrary() {
+	return new Promise((resolve, reject) => {
+		let resBody;
+		console.log('going in');
+		superagent.get(`http://localhost:3000/api/loadLibrary`).end((err, res) => {
+			if (err) {
+				console.error('ERROR:', err);
+				reject(err);
+			}
+			setLibrary(res.body.res);
+			resolve('worked');
+		});
+	});
+}
 
 
 export function fetchPrimaryFavorites() {
@@ -14,7 +40,7 @@ export function fetchPrimaryFavorites() {
 		console.log('le res', res.body);
 		_.each(res.body, (obj) => {
 			obj.dataset = _.orderBy(obj.dataset, ['playcount'], ['desc']);
-		})
+		});
 		setMainView(res.body);
 		return res;
 	});
@@ -42,6 +68,52 @@ export function buildQuery(obj) {
 		setTempView(resBody);
 		return;
 	})
+};
+
+export function backupTrack(obj) {
+	console.log('sending this to the server -->', obj);
+
+	//var myFormData = new FormData();
+	// myFormData.append('pictureFile', pictureInput.files[0]);
+	// return;
+	// const data = new FormData();
+	// data.append('serverPath', obj.location, obj.id);
+	// data.append('track', JSON.stringify(obj));
+
+	// console.log('the data--->', data);
+	// return;
+	superagent.post('http://localhost:3000/api/addToCloud').send(obj).then((res) => {
+		console.log('here is the res! -->', res);
+	});
+}
+
+export function uploadTrack(obj){
+	console.log('here is the object we are sending:', obj);
+	return;
+	superagent.post('http://localhost:3000/api/addToCloud').send(obj).then((res) => {
+		console.log('the res from uploading --> ', res);
+
+
+	})
+};
+
+export function getLoved() {
+	let resBody;
+	superagent.get(`http://localhost:3030/api/getUserLibrary`).end((err, res) => {
+		if (err) {
+			console.error('ERROR:', err);
+			return err;
+		}
+		console.log('le res', res.body);
+		// _.each(res.body, (obj) => {
+			// console.log('track-->', obj);
+			res.body.dataset = _.orderBy(res.body.dataset, ['playcount'], ['desc']);
+		// });
+		setMainView([res.body]);
+		return res;
+	});
+
+
 }
 
 

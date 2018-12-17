@@ -1,6 +1,6 @@
 $navy: #001e38;
 $green: #15b78f;
-$lightGreen: #3FBF7F;
+$lightGreen: #3fbf7f;
 $yellow: #faf169;
 
 html {
@@ -16,60 +16,62 @@ body {
   align-items: center;
   font-family: monospace;
 
-  #app, #appWrap {
+  #app,
+  #appWrap {
     width: 100%;
   }
 
-  .table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+  .table-striped > tbody > tr:nth-child(2n) > td,
+  .table-striped > tbody > tr:nth-child(2n) > th {
     color: white;
     background-color: #001e38;
- }
+  }
 
-    .listContainer {
-      background: $yellow;
-      border: 1px solid black;
-      width: 33%;
-      margin-bottom: 3px;
-    }
+  .listContainer {
+    background: $yellow;
+    border: 1px solid black;
+    // width: 33%;
+    margin-bottom: 3px;
+  }
 
-    .libraryContainer {
-      background: $navy;
-      border: 1px solid black;
-      width: 93%;
-      margin-bottom: 3px;
+  .libraryContainer {
+    background: $navy;
+    border: 1px solid black;
+    width: 93%;
+    margin-bottom: 3px;
 
-      .tableName {
-        h3 {
-          color: white;
-        }
-      }
-    }
-
-    .listInnerContainer {
-      width: 100%;
-      max-height: 30em;
-      overflow: scroll;
-    }
-
-    .listTable {
-      width: 100%;
-      th {
+    .tableName {
+      h3 {
         color: white;
-        text-align: inherit;
       }
     }
+  }
 
-    .trackData {
+  .listInnerContainer {
+    width: 100%;
+    max-height: 30em;
+    overflow: scroll;
+  }
+
+  .listTable {
+    width: 100%;
+    th {
+      color: white;
+      text-align: inherit;
+    }
+  }
+
+  .trackData {
+    width: 33%;
+  }
+
+  .trackBasicList {
+    display: flex;
+    justify-content: space-around;
+    div {
       width: 33%;
     }
-
-    .trackBasicList {
-      display: flex;
-      justify-content: space-around;
-      div {
-        width: 33%
-      }
-    }
+  }
 }
 
 h1 {
@@ -79,5 +81,5 @@ h1 {
 }
 
 p {
-color: $lightGreen
+  color: $lightGreen;
 }

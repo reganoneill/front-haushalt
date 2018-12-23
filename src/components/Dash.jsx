@@ -30,7 +30,7 @@ class Dash extends Component {
 		return new Promise((resolve, reject) => {
 			const userObj = JSON.parse(window.localStorage.user);
 			if (this) {
-				// checking for 'this' is dumb but necessary to avoid error - dont fully understand it rn. remove it and read error
+				// checking avoids error - dont fully understand it rn. remove it and read error
 				if (!userObj) {
 					reject();
 				}
@@ -48,9 +48,8 @@ class Dash extends Component {
 		e.preventDefault();
 		if (this) {
 			return this.props.dispatchListItem(this.state.title);
-			// console.log('hehehe', this.state);
 		}
-		return 'shit';
+		return 'test';
 	}
 
 	render() {
@@ -59,7 +58,7 @@ class Dash extends Component {
 				<p>{this.state.name}</p>
 				<p>{this.state.email}</p>
 				<p>{this.state.title}</p>
-				<div>YOOOOOO!!!</div>
+				<div>test</div>
 				<form onSubmit={this.submitListItem}>
 					<input
 						value={this.state.title}

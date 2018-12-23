@@ -1,51 +1,38 @@
-// import superagent from "superagent";
+import React from "react";
+import { Route, Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-// const fakeAuth = {
-//   isAuthenticated: false,
-//   authenticate(cb) {
-//     this.isAuthenticated = true;
-//     setTimeout(cb, 100);
-//   },
-//   signout(cb) {
-//     this.isAuthenticated = false;
-//     setTimeout(cb, 100);
-//   }
-// };
+const realAuth = {
+  authorize: arg => {
+    if (arg) {
+      return true;
+    }
+    console.log("no token");
+    return false;
+  }
+};
 
-// function realAuth() {
-//   let isAuthenticated;
+const pRoute = ({ component: Component, user: user, ...rest }) => {
+  console.log("token: ", user.token);
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        realAuth.authorize(usrr.token) ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/signin" />
+        )}
+    />
+  );
+};
 
-//   const token = localStorage.getItem("token");
+const mapStateToProps = state => ({
+  user: state.user
+});
 
-//   let userID = window.localStorage.userID;
+const connectedProtectedRouteContainer = connect(mapStateToProps)(pRoute);
 
-//   superagent
-//     .get(`http://localhost:3000/api/auth/${userID}`)
-//     .set("Authorization", `Bearer ${token}`)
-//     .set("Accept", "application/json")
-//     .then(res => {
-//       console.log("here is the res --->", res);
-//       if()
-//       isAuthenticated = true;
-//       return isAuthenticated;
-//     })
-//     .catch(() => {
-//       console.log("NOT ALLOWED!");
-//       isAuthenticated = false;
-//       return isAuthenticated;
-//     });
-// }
+const PrivateRoute = withRouter(connectedProtectedRouteContainer);
 
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//   <Route
-//     {...rest}
-//     render={props =>
-//       realAuth.isAuthenticated === true ? (
-//         <Component {...props} />
-//       ) : (
-//         <Redirect to="/signin" />
-//       )}
-//   />
-// );
-
-// export default PrivateRoute;
+export default PrivateRoute;

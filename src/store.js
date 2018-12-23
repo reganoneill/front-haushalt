@@ -15,8 +15,9 @@ const defaultState = {
   user: {
     email: "email@gmail",
     firstname: "first name",
-    id: "1010101010101",
-    token: "token"
+    token: "",
+    status: 0,
+    permissionLevel: 0
   },
   library: { yo_wut_up: "yo wut up" },
   lists: [],
@@ -34,7 +35,7 @@ const setLibrary = (state, action) => {
 };
 
 const setUser = (state, action) => {
-  console.log("here is whatsu p", action);
+  console.log("signing user in from redux store-->", action);
   return Object.assign({}, state, { user: action.payload });
 };
 

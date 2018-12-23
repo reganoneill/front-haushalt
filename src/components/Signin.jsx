@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
-// import { signinRequest, signupRequest } from "../actionCreators";
+import { withRouter, Redirect } from "react-router-dom";
 import { signinRequest, signupRequest } from "../utils/auth";
 
 class Signin extends Component {
@@ -14,7 +13,8 @@ class Signin extends Component {
       password: "",
       emailSignup: "",
       passwordSignup: "",
-      user: {}
+      user: {},
+      redirect: false
     };
     this.handleSignin = this.handleSignin.bind(this);
     this.emailChange = this.emailChange.bind(this);
@@ -24,23 +24,31 @@ class Signin extends Component {
     this.emailChangeSignup = this.emailChangeSignup.bind(this);
     this.passwordChangeSignup = this.passwordChangeSignup.bind(this);
   }
-  componentDidMount() {
-    // if (window.localStorage.user) {
-    // 	console.log('hittang');
-    // 	this.props.history.push('/dash');
-    // }
-  }
 
   handleSignin(event) {
     event.preventDefault();
-    signinRequest(this.state);
-    // return this.props.signin(this.state);
+    signinRequest(this.state)
+      .then(() => {
+        if (this.state.token) {
+          this.setState({ redirect: true });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   handleSignup(event) {
     event.preventDefault();
-    signupRequest(this.state);
-    // return this.props.signup(this.state);
+    signupRequest(this.state)
+      .then(() => {
+        if (this.props.user.token) {
+          this.setState({ redirect: true });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   emailChange(event) {
@@ -51,7 +59,6 @@ class Signin extends Component {
     this.setState({ password: event.target.value });
   }
 
-  //
   emailChangeSignup(event) {
     this.setState({ emailSignup: event.target.value });
   }
@@ -61,8 +68,15 @@ class Signin extends Component {
   }
 
   render() {
+    const { redirect } = this.state;
+    if (redirect) {
+      console.log("redirect to /profile");
+      return <Redirect to="/profile" />;
+    }
+
     return (
       <div className="signin">
+        <code>{JSON.stringify(this.props)}</code>
         <h1>signin</h1>
         <form onSubmit={this.handleSignin}>
           <input
@@ -123,20 +137,11 @@ Signin.propTypes = {
 
 const mapStateToProps = state => ({
   user: state.user
+  // location: state.location
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   signup(user) {
-//     dispatch(signupRequest(user));
-//   },
-//   signin(user) {
-//     dispatch(signinRequest(user));
-//   }
-// });
-
-// const connectedContainer = connect(mapStateToProps, mapDispatchToProps)(Signin);
 const connectedContainer = connect(mapStateToProps)(Signin);
 
-const ready2route = withRouter(connectedContainer);
+const SigninRoute = withRouter(connectedContainer);
 
-export default ready2route;
+export default SigninRoute;

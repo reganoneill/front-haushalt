@@ -54,6 +54,7 @@ export default class TuneJam extends Component {
   }
 
   componentDidMount() {
+    console.log("weelllllll wellllllll wellllllll");
     fetchPrimaryFavorites();
   }
 

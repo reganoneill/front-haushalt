@@ -81,57 +81,16 @@ export const signinAction = user => {
     type: SET_USER,
     payload: user
   });
-  //   return function(dispatch) {
-  //     superagent
-  //       .post(`http://localhost:3000/signin`)
-  //       .send(user)
-  //       .then(res => {
-  //         console.log("then the nthen");
-  //         const yourUser = _.assign(
-  //           {},
-  //           {
-  //             email: res.body.email,
-  //             firstname: res.body.firstname,
-  //             id: JSON.stringify(res.body.id),
-  //             token: res.body.token,
-  //             yowutUp: "yo wut up"
-  //           }
-  //         );
-  //         document.cookie = `token=${res.body.token}`;
-  //         window.localStorage.setItem("user", JSON.stringify(yourUser));
-  //         console.log("signedup");
-  //         Store.dispatch(setUser(yourUser));
-  //         // return res;
-  //       });
-  //   };
 };
 
-export const signupAction = user => {
-  console.log("here is the signup user", user);
-  //   superagent
-  //     // .post(`http://localhost:8080/signin`)
-  //     .post(`http://localhost:3000/signup`)
-  //     .send(user)
-  //     .then(res => {
-  //       const yourUser = _.assign(
-  //         {},
-  //         {
-  //           email: res.body.email,
-  //           firstname: res.body.firstname,
-  //           id: JSON.stringify(res.body.id),
-  //           token: res.body.token,
-  //           yowutUp: "yo wut up"
-  //         }
-  //       );
-  //       document.cookie = `token=${res.body.token}`;
-  //       window.localStorage.setItem("user", JSON.stringify(yourUser));
-  //       console.log("congratz");
-  //       //   window.location.replace(`http://localhost:8081/dash/${res.body.email}`);
-  //       // this dispatch below may be unnecessary as I think dispatch only gets called from mapDispatchToProps in the component
-  //       //   dispatch(setUser(yourUser));
-  //       // return res;
-  //     });
-};
+// export const signupAction = user => {
+//   console.log("here is the signup user", user);
+//   Store.dispatch({
+//     type: SET_USER,
+//     payload: user
+//   });
+//   //TODO: FIX THIS
+// };
 
 export const newListItem = listitem => {
   // get cookie to pass for jwt Authorization

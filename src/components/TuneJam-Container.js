@@ -5,7 +5,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { withRouter, Redirect } from "react-router-dom";
 import TuneJam from "./TuneJam.jsx";
 

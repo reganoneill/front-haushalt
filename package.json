@@ -2,8 +2,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server --mode=development",
-    "format":
-      "prettier --write --single-quote --print-width=120 --parser=flow --tab-width=2 \"js/**/*.{js,jsx}\"",
+    "format": "prettier --write --single-quote --print-width=120 --parser=flow --tab-width=2 \"js/**/*.{js,jsx}\"",
     "lint": "eslint **/*.{js, jsx} --quiet",
     "watch": "webpack --watch --mode=development"
   },
@@ -23,7 +22,7 @@
     "node-sass": "^4.10.0",
     "preact": "8.1.0",
     "preact-compat": "3.16.0",
-    "prop-types": "15.5.10",
+    "prop-types": "^15.5.10",
     "react": "15.5.4",
     "react-addons-perf": "15.4.2",
     "react-bootstrap": "^0.32.4",

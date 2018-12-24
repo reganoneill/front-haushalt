@@ -18,7 +18,7 @@ const pRoute = ({ component: Component, user: user, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        realAuth.authorize(usrr.token) ? (
+        realAuth.authorize(user.token) ? (
           <Component {...props} />
         ) : (
           <Redirect to="/signin" />

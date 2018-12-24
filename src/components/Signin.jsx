@@ -29,7 +29,7 @@ class Signin extends Component {
     event.preventDefault();
     signinRequest(this.state)
       .then(() => {
-        if (this.state.token) {
+        if (this.props.user.token) {
           this.setState({ redirect: true });
         }
       })

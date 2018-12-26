@@ -1,4 +1,5 @@
 import { createStore } from "redux";
+const path = require("path");
 
 import {
   SET_LIBRARY,
@@ -8,7 +9,8 @@ import {
   SET_MOSTPLAYED_3MONTHS,
   SET_MAIN_VIEW,
   SET_TEMP_VIEW,
-  SET_UPLOADER_VIEW
+  SET_UPLOADER_VIEW,
+  SET_S3_URL
 } from "./actions";
 
 const defaultState = {
@@ -23,7 +25,8 @@ const defaultState = {
   lists: [],
   tempLists: [],
   topTracksAll: [],
-  uploader: false
+  uploader: false,
+  awsTrackUrl: null
 };
 
 const setUploaderView = (state, action) => {
@@ -61,6 +64,10 @@ const setTopTracks3Months = (state, action) => {
   return Object.assign({}, state, { topTracks3Months: action.payload });
 };
 
+const setS3Url = (state, action) => {
+  return Object.assign({}, state, { awsTrackUrl: action.payload });
+};
+
 const AppReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_USER:
@@ -77,6 +84,8 @@ const AppReducer = (state = defaultState, action) => {
       return setTempView(state, action);
     case SET_LIBRARY:
       return setLibrary(state, action);
+    case SET_S3_URL:
+      return setS3Url(state, action);
     default:
       return state;
   }

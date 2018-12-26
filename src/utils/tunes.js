@@ -7,16 +7,9 @@ import {
   setMostPlayed6months,
   setMostPlayed3months,
   setMainView,
-  setTempView
+  setTempView,
+  sets3Url
 } from "../actionCreators";
-// import multer from 'multer';
-// import AWS from 'aws-sdk';
-
-// const s3 = new AWS.S3();
-
-// var uploadStore = __dirname + '/../uploads';
-// console.log(uploadStore);
-// var upload = multer({dest: uploadStore });
 
 export function fetchEntireLibrary() {
   return new Promise((resolve, reject) => {
@@ -41,6 +34,10 @@ export function backupTrack(track) {
       .send(track)
       .then(thing => {
         console.log("what is this", thing);
+        resolve(thing);
+      })
+      .catch(err => {
+        reject(err);
       });
   });
 }
@@ -111,6 +108,18 @@ export function uploadTrack(obj) {
     .then(res => {
       console.log("the res from uploading --> ", res);
     });
+}
+
+export function fetchS3Info() {
+  superagent.get("http://localhost:3000/api/fetchS3Info").then(res => {
+    console.log(
+      "the res to set state with so that we can conceal our s3 url --> ",
+      res.body[0].title
+    );
+    let awsUrl = res.body[0].title;
+    sets3Url(awsUrl);
+    return;
+  });
 }
 
 export function getLoved() {

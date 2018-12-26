@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 
 const realAuth = {
   authorize: arg => {
-    if (arg) {
+    let userToken = localStorage.getItem("bm8_token");
+    if (arg || userToken) {
       return true;
     }
     console.log("no token");

@@ -2,6 +2,9 @@ $navy: #001e38;
 $green: #15b78f;
 $lightGreen: #3fbf7f;
 $yellow: #faf169;
+$black: #000;
+$darkgray: #181818;
+$mediumgray: #383838;
 
 html {
   background-color: $navy;
@@ -28,15 +31,15 @@ body {
   }
 
   .listContainer {
-    background: $yellow;
-    border: 1px solid black;
+    background: $mediumgray;
+    // border: 1px solid black;
     // width: 33%;
     margin-bottom: 3px;
   }
 
   .libraryContainer {
     background: $navy;
-    border: 1px solid black;
+    // border: 1px solid black;
     width: 93%;
     margin-bottom: 3px;
 

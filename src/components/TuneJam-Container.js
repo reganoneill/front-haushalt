@@ -20,7 +20,8 @@ const mapStateToProps = (state, props) => {
     lists: state.lists,
     tempLists: state.tempLists,
     uploader: state.uploader,
-    library: state.library
+    library: state.library,
+    awsTrackUrl: state.awsTrackUrl
   };
 };
 

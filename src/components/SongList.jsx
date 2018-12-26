@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import superagent from "superagent";
 import _ from "lodash";
 
 import { backupTrack } from "../utils/tunes";
@@ -9,14 +9,23 @@ export default class SongList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uploadView: this.props.uploadView
+      uploadView: this.props.uploadView,
+      showTracks: [],
+      streamingTrack: null
     };
     this.uploadTrack = this.uploadTrack.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
   }
 
+  componentWillReceiveProps(next) {
+    console.log("oh gooood!", next);
+  }
+
   uploadTrack(track) {
-    backupTrack(track);
+    console.log("you just clicked on this track--->", track);
+    backupTrack(track).then(data => {
+      console.log("backup complete:", data);
+    });
   }
 
   uploadFile({ track }) {
@@ -24,96 +33,54 @@ export default class SongList extends Component {
   }
 
   render() {
-    // option 1
-    // let renderSongs = _.map(this.props.primaryData, (track, idx) => {
-    // 	return (
-    //     <li key={idx} className="trackBasicList">
-    //       <div>
-    //         <span>{track.title}</span>
-    //       </div>
-    //       <div>
-    //         <span>{track.artist}</span>
-    //       </div>
-    //       <div>
-    //         <span>played {track.playcount} times</span>
-    //       </div>
-    //
-    //     </li>
-    // 	);
-    // });
-
-    // option 2
     let renderSongsTable = _.map(this.props.primaryData, (track, idx) => {
-      console.log("track- - - - ->", track);
-      if (this.props.listName === "Top artists") {
-        return (
-          <tr className="trackRow" key={idx}>
-            <td className="trackData">{track.artistname}</td>
-            <td className="trackData">{track.plays}</td>
-          </tr>
-        );
-      } else {
-        return (
-          <div>
-            {/* <input type="file" onChange={this.uploadFile} /> */}
-            <tr className="trackRow" key={idx}>
-              <td className="trackData">{track.title}</td>
-              <td className="trackData">{track.artist}</td>
-              <td className="trackData">{track.playcount}</td>
-              <td className="trackData" onClick={() => this.uploadTrack(track)}>
-                upload
-              </td>
-            </tr>
-          </div>
-        );
-      }
+      let amazonUrl = `${this.props.awsUrl}${track.amazonLookup}`;
+      return (
+        <tr className="trackRow" key={idx}>
+          <td className="trackData">{track.title}</td>
+          <td className="trackData">{track.artist}</td>
+          <td className="trackData">{track.playcount}</td>
+          {track.backedUp < 1 ? (
+            <td className="trackData" onClick={() => this.uploadTrack(track)}>
+              upload
+            </td>
+          ) : (
+            <td className="trackData">
+              <audio controls="controls" preload="auto" id="audio_player">
+                <source src={amazonUrl} />
+              </audio>
+            </td>
+          )}
+        </tr>
+      );
     });
 
-    if (this.props.listName === "Top artists") {
-      return (
-        <div className="listContainer">
-          <div className="tableName">
-            <h3>{this.props.listName}</h3>
-          </div>
-          <div className="listInnerContainer">
-            <table className="listTable table table-striped sticky-header">
-              <thead className="songsTableHeader">
-                <th>artist</th>
-                <th>playcount</th>
-                <th>upload</th>
-              </thead>
-              <tbody className="songsTableBody">{renderSongsTable}</tbody>
-            </table>
-          </div>
+    return (
+      <div className="listContainer">
+        <div className="tableName">
+          <h3>{this.props.listName}</h3>
         </div>
-      );
-    } else {
-      return (
-        <div className="listContainer">
-          <div className="tableName">
-            <h3>{this.props.listName}</h3>
-            <p>{this.props.uploadView ? "sweet" : "idk?!"}</p>
-          </div>
-          <div className="listInnerContainer">
-            <table className="listTable table table-striped sticky-header">
-              <thead className="songsTableHeader">
+        <div className="listInnerContainer">
+          <table className="listTable table table-striped sticky-header">
+            <thead className="songsTableHeader">
+              <tr>
                 <th>track</th>
                 <th>artist</th>
                 <th>playcount</th>
-              </thead>
-              <tbody className="songsTableBody">
-                <div>{renderSongsTable}</div>
-              </tbody>
-            </table>
-          </div>
+                <th>play / upload</th>
+              </tr>
+            </thead>
+            <tbody>{renderSongsTable}</tbody>
+          </table>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 
 SongList.PropTypes = {
   listName: PropTypes.string,
   primaryData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  uploadView: PropTypes.string
+  uploadView: PropTypes.string,
+  awsUrl: PropTypes.string
 };

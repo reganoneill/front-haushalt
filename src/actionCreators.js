@@ -13,7 +13,8 @@ import {
   SET_MAIN_VIEW,
   SET_TEMP_VIEW,
   SET_UPLOADER_VIEW,
-  SET_LIBRARY
+  SET_LIBRARY,
+  SET_S3_URL
 } from "./actions";
 
 export const setUploaderView = item => {
@@ -26,6 +27,13 @@ export const setUploaderView = item => {
 export const setLibrary = item => {
   Store.dispatch({
     type: SET_LIBRARY,
+    payload: item
+  });
+};
+
+export const sets3Url = item => {
+  Store.dispatch({
+    type: SET_S3_URL,
     payload: item
   });
 };

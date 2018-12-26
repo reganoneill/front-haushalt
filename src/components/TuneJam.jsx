@@ -18,7 +18,8 @@ import {
   fetchPrimaryFavorites,
   fetch6monthsFavorites,
   fetch3monthsFavorites,
-  buildQuery
+  buildQuery,
+  fetchS3Info
 } from "../utils/tunes";
 
 import ListHolder from "./ListHolder.jsx";
@@ -54,7 +55,8 @@ export default class TuneJam extends Component {
   }
 
   componentDidMount() {
-    console.log("weelllllll wellllllll wellllllll");
+    console.log("props available inside tune jam component --->", this.props);
+    fetchS3Info();
     fetchPrimaryFavorites();
   }
 
@@ -155,7 +157,6 @@ export default class TuneJam extends Component {
   determineUploadView() {}
 
   renderLists() {
-    console.log("lists:", this.props.lists);
     return _.map(this.props.lists, (list, idx) => {
       return (
         <SongList
@@ -164,13 +165,13 @@ export default class TuneJam extends Component {
           primaryData={list.dataset}
           uploadView={list.uploadView}
           updateUploadView={this.showUploadView}
+          awsUrl={this.props.awsTrackUrl ? this.props.awsTrackUrl : "shit"}
         />
       );
     });
   }
 
   renderTempLists() {
-    console.log("temp lists:", this.props.tempLists);
     if (!this.props.tempLists.length) {
       return null;
     }
@@ -222,7 +223,7 @@ export default class TuneJam extends Component {
   }
 
   showUploadView(list) {
-    console.log("showUploadView - list -->", list);
+    // console.log("showUploadView - list -->", list);
   }
 
   showThing() {

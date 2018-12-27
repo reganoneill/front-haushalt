@@ -20,14 +20,14 @@ export default class Player extends Component {
         "-------streamingUrl------streamingUrl--------------------",
         streamingUrl
       );
-      const playerContainer = {
-        marginTop: "15em",
-        display: "flex",
-        flexDirection: "row"
-      };
+      //   const playerContainer = {
+      //     marginTop: "15em",
+      //     display: "flex",
+      //     flexDirection: "row"
+      //   };
 
       return (
-        <div style={playerContainer} className="playerContainer">
+        <div className="playerContainer">
           {/* <h1>ypyp: {streamingUrl}</h1>
           <pre>
             <code>{JSON.stringify(this.props.nowPlaying)}</code>

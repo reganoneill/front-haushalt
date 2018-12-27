@@ -24,6 +24,7 @@ import {
 
 import Sidebar from "./Sidebar.jsx";
 import PlayerContainer from "./Player-Container.js";
+import SeachInputContainer from "./SearchInput-Container.js";
 import ListHolder from "./ListHolder.jsx";
 import SongList from "./SongList.jsx";
 
@@ -242,22 +243,25 @@ export default class TuneJam extends Component {
   render() {
     let tuneJamStyle = {
       display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap"
+      flexDirection: "row"
+      // flexWrap: "wrap"
     };
 
     return (
       <div id="appWrap">
-        <div className="menu">
-          <div className="hamburger">
+        <div className="alignChildren">
+          {/* <div className="menu">
             <i className="fa fa-angle-double-right" />
+          </div> */}
+          <div className="controls">
+            <PlayerContainer />
+            <SeachInputContainer />
           </div>
-        </div>
-        <PlayerContainer />
-        <div style={tuneJamStyle} className="tuneJamContainer">
-          <Sidebar />
-          {this.renderLists()}
-          {this.renderModal()}
+          <div style={tuneJamStyle} className="tuneJamContainer">
+            <Sidebar />
+            {this.renderLists()}
+            {this.renderModal()}
+          </div>
         </div>
       </div>
     );

@@ -1,15 +1,10 @@
-// import { connect } from 'react-redux';
-// import TuneJam from './TuneJam.jsx';
-
-//
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import PropTypes from "prop-types";
 import { withRouter, Redirect } from "react-router-dom";
-import TuneJam from "./TuneJam.jsx";
 
-//
+import { setPlayTrack } from "../actionCreators";
+import TuneJam from "./TuneJam.jsx";
 
 const mapStateToProps = (state, props) => {
   return {
@@ -25,7 +20,13 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const tuneJamRedux = connect(mapStateToProps)(TuneJam);
+const mapDispatchToProps = dispatch => {
+  return {
+    playTrack: track => dispatch(setPlayTrack(track))
+  };
+};
+
+const tuneJamRedux = connect(mapStateToProps, mapDispatchToProps)(TuneJam);
 
 const TuneJamContainer = withRouter(tuneJamRedux);
 export default TuneJamContainer;

@@ -12,3 +12,4 @@ export const SET_TEMP_VIEW = "SET_TEMP_VIEW";
 export const SET_UPLOADER_VIEW = "SET_UPLOADER_VIEW";
 export const SET_LIBRARY = "SET_LIBRARY";
 export const SET_S3_URL = "SET_S3_URL";
+export const PLAY_TRACK = "PLAY_TRACK";

@@ -22,6 +22,8 @@ import {
   fetchS3Info
 } from "../utils/tunes";
 
+import Sidebar from "./Sidebar.jsx";
+import PlayerContainer from "./Player-Container.js";
 import ListHolder from "./ListHolder.jsx";
 import SongList from "./SongList.jsx";
 
@@ -39,7 +41,7 @@ export default class TuneJam extends Component {
       insightDropdown: "Select An Option",
       specifyInsight: ""
     };
-    this.showThing = this.showThing.bind(this);
+    this.showModal = this.showModal.bind(this);
     this.renderModal = this.renderModal.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.submitView = this.submitView.bind(this);
@@ -49,9 +51,10 @@ export default class TuneJam extends Component {
       this
     );
     this.renderLists = this.renderLists.bind(this);
-    this.renderTempLists = this.renderTempLists.bind(this);
+    // this.renderTempLists = this.renderTempLists.bind(this);
     this.renderUploadView = this.renderUploadView.bind(this);
     this.showUploadView = this.showUploadView.bind(this);
+    this._playTrack = this._playTrack.bind(this);
   }
 
   componentDidMount() {
@@ -156,6 +159,11 @@ export default class TuneJam extends Component {
 
   determineUploadView() {}
 
+  _playTrack(track) {
+    console.log("oh yeeaaaaahhhhh!!!!!! the tracccckkkk ---->", track);
+    this.props.playTrack(track);
+  }
+
   renderLists() {
     return _.map(this.props.lists, (list, idx) => {
       return (
@@ -165,22 +173,23 @@ export default class TuneJam extends Component {
           primaryData={list.dataset}
           uploadView={list.uploadView}
           updateUploadView={this.showUploadView}
-          awsUrl={this.props.awsTrackUrl ? this.props.awsTrackUrl : "shit"}
+          playTrack={this._playTrack}
+          awsUrl={this.props.awsTrackUrl ? this.props.awsTrackUrl : null}
         />
       );
     });
   }
 
-  renderTempLists() {
-    if (!this.props.tempLists.length) {
-      return null;
-    }
-    return _.map(this.props.tempLists, (list, idx) => {
-      return (
-        <SongList key={idx} listName={list.title} primaryData={list.dataset} />
-      );
-    });
-  }
+  // renderTempLists() {
+  //   if (!this.props.tempLists.length) {
+  //     return null;
+  //   }
+  //   return _.map(this.props.tempLists, (list, idx) => {
+  //     return (
+  //       <SongList key={idx} listName={list.title} primaryData={list.dataset} />
+  //     );
+  //   });
+  // }
 
   renderModal() {
     return (
@@ -226,7 +235,7 @@ export default class TuneJam extends Component {
     // console.log("showUploadView - list -->", list);
   }
 
-  showThing() {
+  showModal() {
     this.setState({ show: true });
   }
 
@@ -234,34 +243,20 @@ export default class TuneJam extends Component {
     let tuneJamStyle = {
       display: "flex",
       flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "space-around",
-      alignItems: "center",
-      height: "50em",
-      overflow: "scroll",
-      border: "2px white solid"
+      flexWrap: "wrap"
     };
 
     return (
       <div id="appWrap">
         <div className="menu">
           <div className="hamburger">
-            <i className="fa fa-hamburger" />
-          </div>
-          <div className="addIcon">
-            <i className="fa fa-plus" />
-            <Button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => this.showThing()}
-            >
-              Create New Report
-            </Button>
+            <i className="fa fa-angle-double-right" />
           </div>
         </div>
+        <PlayerContainer />
         <div style={tuneJamStyle} className="tuneJamContainer">
+          <Sidebar />
           {this.renderLists()}
-          {this.renderTempLists()}
           {this.renderModal()}
         </div>
       </div>

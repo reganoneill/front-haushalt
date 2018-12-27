@@ -15,6 +15,7 @@ export default class SongList extends Component {
     };
     this.uploadTrack = this.uploadTrack.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
+    this.playTrack = this.playTrack.bind(this);
   }
 
   componentWillReceiveProps(next) {
@@ -32,6 +33,20 @@ export default class SongList extends Component {
     // backupTrack(track);
   }
 
+  playTrack(track) {
+    console.log("the track-->", track);
+    this.props.playTrack(track);
+    //TODO: DISPATCH ACTION TO PROPS TO SET THIS TRACK TO BE PLAYED
+    //THEN ONCE THE "PLAYER" COMPONENT HAS BEEN BUILT OUT, HAVE IT
+    //SUBSCRIBE TO THE PLAY TRACK AND PLAY IT!
+  }
+
+  // <td className="trackData">
+  //             <audio controls="controls" preload="auto" id="audio_player">
+  //               <source src={amazonUrl} />
+  //             </audio>
+  //           </td>
+
   render() {
     let renderSongsTable = _.map(this.props.primaryData, (track, idx) => {
       let amazonUrl = `${this.props.awsUrl}${track.amazonLookup}`;
@@ -45,10 +60,8 @@ export default class SongList extends Component {
               upload
             </td>
           ) : (
-            <td className="trackData">
-              <audio controls="controls" preload="auto" id="audio_player">
-                <source src={amazonUrl} />
-              </audio>
+            <td className="trackData" onClick={() => this.playTrack(track)}>
+              play
             </td>
           )}
         </tr>

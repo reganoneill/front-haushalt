@@ -33,9 +33,13 @@ body {
       .controls {
         display: flex;
         flex-direction: row;
-        border: 5px solid red;
-        max-height: 5em;
+        // border: 5px solid red;
+        max-height: 4.75em;
         justify-content: space-between;
+
+        .mainInput {
+          height: 4em;
+        }
       }
     }
   }
@@ -49,7 +53,7 @@ body {
   .listContainer {
     background: $mediumgray;
     // border: 1px solid black;
-    width: 85%;
+    width: 90%;
     margin-bottom: 3px;
     // border: 1px solid red;
   }
@@ -128,7 +132,8 @@ p {
     height: 50px;
     overflow: hidden;
     position: relative;
-    margin-left: 2.25em;
+    width: 25em;
+    // margin-left: 2.25em;
 
     p {
       // position: absolute;

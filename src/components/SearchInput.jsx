@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FormControl } from "react-bootstrap";
 
 export default class SearchInput extends Component {
   constructor(props) {
@@ -25,8 +26,9 @@ export default class SearchInput extends Component {
     return (
       <div>
         <form>
-          <input
+          <FormControl
             type="text"
+            className="mainInput"
             value={this.state.searchQuery}
             onChange={this.updateSearch}
           />

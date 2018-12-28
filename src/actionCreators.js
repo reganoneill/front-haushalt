@@ -13,31 +13,56 @@ import {
   SET_MAIN_VIEW,
   SET_TEMP_VIEW,
   SET_UPLOADER_VIEW,
-  SET_LIBRARY
+  SET_LIBRARY,
+  SET_S3_URL,
+  PLAY_TRACK
 } from "./actions";
 
 export const setUploaderView = item => {
-  Store.dispatch({
+  return {
     type: SET_UPLOADER_VIEW,
     payload: item
-  });
+  };
+};
+
+export const setPlayTrack = track => {
+  return {
+    type: PLAY_TRACK,
+    payload: track
+  };
 };
 
 export const setLibrary = item => {
-  Store.dispatch({
+  return {
     type: SET_LIBRARY,
+    payload: item
+  };
+};
+
+export const sets3Url = item => {
+  // return {
+  //   type: SET_S3_URL,
+  //   payload: item
+  // };
+  Store.dispatch({
+    type: SET_S3_URL,
     payload: item
   });
 };
 
 export function setUser(user) {
-  Store.dispatch({
+  return {
     type: SET_USER,
     user
-  });
+  };
 }
 
+//ro update - here is your problem!
 export const setMainView = item => {
+  // return {
+  //   type: SET_MAIN_VIEW,
+  //   payload: item
+  // };
   Store.dispatch({
     type: SET_MAIN_VIEW,
     payload: item
@@ -45,47 +70,50 @@ export const setMainView = item => {
 };
 
 export const setTempView = item => {
-  Store.dispatch({
+  return {
     type: SET_TEMP_VIEW,
     payload: item
-  });
+  };
 };
 
 export const setMostPlayedAll = item => {
-  console.log("inside actionCreators...here is the argument:", item);
-  Store.dispatch({
+  return {
     type: SET_MOSTPLAYED_ALL,
     payload: item
-  });
+  };
+  // Store.dispatch({
+  //   type: SET_MAIN_VIEW,
+  //   payload: item
+  // });
 };
 
 export const setMostPlayed6months = item => {
   console.log("inside actionCreators...here is the argument:", item);
-  Store.dispatch({
+  return {
     type: SET_MOSTPLAYED_6MONTHS,
     payload: item
-  });
+  };
 };
 
 export const setMostPlayed3months = item => {
   console.log("inside actionCreators...here is the argument:", item);
-  Store.dispatch({
+  return {
     type: SET_MOSTPLAYED_3MONTHS,
     payload: item
-  });
+  };
 };
 
 export const signinAction = user => {
   console.log("here is the signin user-->", user);
-  Store.dispatch({
+  return {
     type: SET_USER,
     payload: user
-  });
+  };
 };
 
 // export const signupAction = user => {
 //   console.log("here is the signup user", user);
-//   Store.dispatch({
+//   return {
 //     type: SET_USER,
 //     payload: user
 //   });

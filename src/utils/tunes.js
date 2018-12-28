@@ -7,16 +7,9 @@ import {
   setMostPlayed6months,
   setMostPlayed3months,
   setMainView,
-  setTempView
+  setTempView,
+  sets3Url
 } from "../actionCreators";
-// import multer from 'multer';
-// import AWS from 'aws-sdk';
-
-// const s3 = new AWS.S3();
-
-// var uploadStore = __dirname + '/../uploads';
-// console.log(uploadStore);
-// var upload = multer({dest: uploadStore });
 
 export function fetchEntireLibrary() {
   return new Promise((resolve, reject) => {
@@ -41,6 +34,10 @@ export function backupTrack(track) {
       .send(track)
       .then(thing => {
         console.log("what is this", thing);
+        resolve(thing);
+      })
+      .catch(err => {
+        reject(err);
       });
   });
 }
@@ -113,6 +110,18 @@ export function uploadTrack(obj) {
     });
 }
 
+export function fetchS3Info() {
+  superagent.get("http://localhost:3000/api/fetchS3Info").then(res => {
+    console.log(
+      "the res to set state with so that we can conceal our s3 url --> ",
+      res.body[0].title
+    );
+    let awsUrl = res.body[0].title;
+    sets3Url(awsUrl);
+    return;
+  });
+}
+
 export function getLoved() {
   let resBody;
   superagent.get(`http://localhost:3030/api/getUserLibrary`).end((err, res) => {
@@ -121,38 +130,8 @@ export function getLoved() {
       return err;
     }
     console.log("le res", res.body);
-    // _.each(res.body, (obj) => {
-    // console.log('track-->', obj);
     res.body.dataset = _.orderBy(res.body.dataset, ["playcount"], ["desc"]);
-    // });
     setMainView([res.body]);
     return res;
   });
 }
-
-// export function fetch6monthsFavorites() {
-// 	let resBody;
-// 	superagent.get(`http://localhost:3000/api/past6months`).end((err, res) => {
-// 		if (err) {
-// 			console.err('ERROR:', err);
-// 			return err;
-// 		}
-// 		resBody = _.orderBy(res.body.res, parseInt(['playcount']), ['desc']);
-// 		setMostPlayed6months(resBody);
-// 		return res;
-// 	});
-// }
-
-// export function fetch3monthsFavorites() {
-// 	let resBody;
-// 	superagent.get(`http://localhost:3000/api/past3months`).end((err, res) => {
-// 		if (err) {
-// 			console.err('ERROR:', err);
-// 			return err;
-// 		}
-// 		resBody = _.orderBy(res.body.res, parseInt(['playcount']), ['desc']);
-// 		console.log('HERE IS YOUR RES 3mo:', resBody);
-// 		setMostPlayed3months(resBody);
-// 		return res;
-// 	});
-// }

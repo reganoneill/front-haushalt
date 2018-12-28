@@ -1,4 +1,6 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+const path = require("path");
 
 import {
   SET_LIBRARY,
@@ -8,7 +10,9 @@ import {
   SET_MOSTPLAYED_3MONTHS,
   SET_MAIN_VIEW,
   SET_TEMP_VIEW,
-  SET_UPLOADER_VIEW
+  SET_UPLOADER_VIEW,
+  SET_S3_URL,
+  PLAY_TRACK
 } from "./actions";
 
 const defaultState = {
@@ -23,7 +27,9 @@ const defaultState = {
   lists: [],
   tempLists: [],
   topTracksAll: [],
-  uploader: false
+  uploader: false,
+  awsTrackUrl: null,
+  nowPlaying: null
 };
 
 const setUploaderView = (state, action) => {
@@ -61,6 +67,17 @@ const setTopTracks3Months = (state, action) => {
   return Object.assign({}, state, { topTracks3Months: action.payload });
 };
 
+const setS3Url = (state, action) => {
+  return Object.assign({}, state, { awsTrackUrl: action.payload });
+};
+
+const playTrack = (state, action) => {
+  // console.log("ooohohohohohohohohohohoo");
+  // console.log("action---->", action);
+  // console.log("action . payload ??????? -->", action.payload);
+  return Object.assign({}, state, { nowPlaying: action.payload });
+};
+
 const AppReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_USER:
@@ -77,11 +94,15 @@ const AppReducer = (state = defaultState, action) => {
       return setTempView(state, action);
     case SET_LIBRARY:
       return setLibrary(state, action);
+    case SET_S3_URL:
+      return setS3Url(state, action);
+    case PLAY_TRACK:
+      return playTrack(state, action);
     default:
       return state;
   }
 };
 
-const AppStore = createStore(AppReducer);
+const AppStore = createStore(AppReducer, applyMiddleware(thunk));
 
 export default AppStore;

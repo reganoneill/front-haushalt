@@ -29,7 +29,7 @@ class Signin extends Component {
     event.preventDefault();
     signinRequest(this.state)
       .then(() => {
-        if (this.state.token) {
+        if (this.props.user.token) {
           this.setState({ redirect: true });
         }
       })
@@ -76,7 +76,6 @@ class Signin extends Component {
 
     return (
       <div className="signin">
-        <code>{JSON.stringify(this.props)}</code>
         <h1>signin</h1>
         <form onSubmit={this.handleSignin}>
           <input
@@ -109,9 +108,6 @@ class Signin extends Component {
           />
           <input type="submit" value="Submit" />
         </form>
-        <pre>
-          <code>{JSON.stringify(this.props.user)}</code>
-        </pre>
       </div>
     );
   }
@@ -125,12 +121,6 @@ Signin.defaultProps = {
 
 Signin.propTypes = {
   signin: PropTypes.func,
-  user: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    firstname: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    token: PropTypes.string.isRequired
-  }),
   // eslint-disable-next-line
   history: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };

@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 
 const realAuth = {
   authorize: arg => {
-    if (arg) {
+    let userToken = localStorage.getItem("bm8_token");
+    if (arg || userToken) {
       return true;
     }
     console.log("no token");
@@ -18,7 +19,7 @@ const pRoute = ({ component: Component, user: user, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        realAuth.authorize(usrr.token) ? (
+        realAuth.authorize(user.token) ? (
           <Component {...props} />
         ) : (
           <Redirect to="/signin" />
